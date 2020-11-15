@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using api;
+using api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api
 {
@@ -26,6 +29,11 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<WePartyDBContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("WePartyDatabase"))
+                );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
