@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\server",
+    "\\server\\api",
+    "\\server\\api\\Migrations",
+    "\\server\\api\\Models",
+    "\\server\\api\\Properties"
+  ],
+  "SelectedNode": "\\server\\api\\Models\\User.cs",
+  "PreviewInSolutionExplorer": false
+}

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Models;
 
 namespace api.Migrations
 {
     [DbContext(typeof(WePartyDBContext))]
-    partial class WePartyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201117214525_povezava_User_Application")]
+    partial class povezava_User_Application
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,10 +44,6 @@ namespace api.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationStatusId");
-
-                    b.HasIndex("PartyId");
 
                     b.HasIndex("UserId");
 
@@ -84,8 +82,6 @@ namespace api.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FriendshipStatusId");
 
                     b.ToTable("Friendships");
                 });
@@ -144,10 +140,6 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PartyStatusId");
-
-                    b.HasIndex("UserId");
-
                     b.ToTable("Partys");
                 });
 
@@ -201,81 +193,18 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Application", b =>
                 {
-                    b.HasOne("api.Models.ApplicationStatus", "ApplicationStatus")
-                        .WithMany("Applications")
-                        .HasForeignKey("ApplicationStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("api.Models.Party", "Party")
-                        .WithMany()
-                        .HasForeignKey("PartyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("api.Models.User", "User")
                         .WithMany("Applications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationStatus");
-
-                    b.Navigation("Party");
-
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("api.Models.Friendship", b =>
-                {
-                    b.HasOne("api.Models.FriendshipStatus", "FriendshipStatus")
-                        .WithMany("Friendships")
-                        .HasForeignKey("FriendshipStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FriendshipStatus");
-                });
-
-            modelBuilder.Entity("api.Models.Party", b =>
-                {
-                    b.HasOne("api.Models.PartyStatus", "PartyStatus")
-                        .WithMany("Parties")
-                        .HasForeignKey("PartyStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("api.Models.User", "User")
-                        .WithMany("Parties")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PartyStatus");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("api.Models.ApplicationStatus", b =>
-                {
-                    b.Navigation("Applications");
-                });
-
-            modelBuilder.Entity("api.Models.FriendshipStatus", b =>
-                {
-                    b.Navigation("Friendships");
-                });
-
-            modelBuilder.Entity("api.Models.PartyStatus", b =>
-                {
-                    b.Navigation("Parties");
                 });
 
             modelBuilder.Entity("api.Models.User", b =>
                 {
                     b.Navigation("Applications");
-
-                    b.Navigation("Parties");
                 });
 #pragma warning restore 612, 618
         }
