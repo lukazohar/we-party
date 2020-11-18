@@ -16,9 +16,8 @@ namespace api.Models
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Description { get; set; }
-        public ICollection <Application> Applications { get; set; }
 
-        public ICollection <Party> Parties { get; set; }
-   
+        public ICollection<Application> Applications { get; set; }
+        public ICollection<Party> Parties { get; set; }
     }
 }

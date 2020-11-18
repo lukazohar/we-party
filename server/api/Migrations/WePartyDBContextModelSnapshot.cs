@@ -26,19 +26,19 @@ namespace api.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("ApplicationStatusId")
+                    b.Property<int?>("ApplicationStatusId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("AppliedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PartyId")
+                    b.Property<int?>("PartyId")
                         .HasColumnType("int");
 
                     b.Property<int>("Rate")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -74,7 +74,7 @@ namespace api.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("FriendshipStatusId")
+                    b.Property<int?>("FriendshipStatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("RecivedId")
@@ -130,7 +130,7 @@ namespace api.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PartyStatusId")
+                    b.Property<int?>("PartyStatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -139,7 +139,7 @@ namespace api.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -203,21 +203,15 @@ namespace api.Migrations
                 {
                     b.HasOne("api.Models.ApplicationStatus", "ApplicationStatus")
                         .WithMany("Applications")
-                        .HasForeignKey("ApplicationStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationStatusId");
 
                     b.HasOne("api.Models.Party", "Party")
                         .WithMany()
-                        .HasForeignKey("PartyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PartyId");
 
                     b.HasOne("api.Models.User", "User")
                         .WithMany("Applications")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("ApplicationStatus");
 
@@ -230,9 +224,7 @@ namespace api.Migrations
                 {
                     b.HasOne("api.Models.FriendshipStatus", "FriendshipStatus")
                         .WithMany("Friendships")
-                        .HasForeignKey("FriendshipStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FriendshipStatusId");
 
                     b.Navigation("FriendshipStatus");
                 });
@@ -241,15 +233,11 @@ namespace api.Migrations
                 {
                     b.HasOne("api.Models.PartyStatus", "PartyStatus")
                         .WithMany("Parties")
-                        .HasForeignKey("PartyStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PartyStatusId");
 
                     b.HasOne("api.Models.User", "User")
                         .WithMany("Parties")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("PartyStatus");
 
