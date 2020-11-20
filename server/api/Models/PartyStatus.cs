@@ -9,6 +9,12 @@ namespace api.Models
         [Key]
         public int Id { get; set; }
         public string Description { get; set; }
-       public ICollection <Party> Parties { get; set; }
+
+        public List<Party> Parties { get; set; }
+
+        public PartyStatus()
+        {
+            this.Parties = new List<Party>();
+        }
     }
 }

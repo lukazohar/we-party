@@ -14,7 +14,7 @@ namespace api.Models
         public int Price { get; set; }
         public string Location { get; set; }
         public int Capacity { get; set; }
-        public Boolean IsPublic { get; set; }
+        public bool IsPublic { get; set; }
         public int? UserId { get; set; }
         public User User { get; set; }
         public int? PartyStatusId { get; set; }

@@ -17,7 +17,13 @@ namespace api.Models
         public DateTime BirthDate { get; set; }
         public string Description { get; set; }
 
-        public ICollection<Application> Applications { get; set; }
-        public ICollection<Party> Parties { get; set; }
+        public List<Application> Applications { get; set; }
+        public List<Party> Parties { get; set; }
+
+        public User()
+        {
+            this.Applications = new List<Application>();
+            this.Parties = new List<Party>();
+        }
     }
 }

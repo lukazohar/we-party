@@ -9,6 +9,12 @@ namespace api.Models
         [Key]
         public int Id { get; set; }
         public string Description { get; set; }
-        public ICollection<Friendship> Friendships { get; set; }
+
+        public List<Friendship> Friendships { get; set; }
+
+        public FriendshipStatus()
+        {
+            this.Friendships = new List<Friendship>();
+        }
     }
 }
