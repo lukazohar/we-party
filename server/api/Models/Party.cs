@@ -17,7 +17,6 @@ namespace api.Models
         public bool IsPublic { get; set; }
         public int? UserId { get; set; }
         public User User { get; set; }
-        public int? PartyStatusId { get; set; }
-        public PartyStatus PartyStatus { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -14,8 +14,5 @@ namespace api.Models
         public DbSet<Party> Parties { get; set; } 
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Application> Applications { get; set; }
-        public DbSet<FriendshipStatus> FriendshipStatuses { get; set; }
-        public DbSet<ApplicationStatus> ApplicationStatuses { get; set; }
-        public DbSet<PartyStatus> PartyStatuses { get; set; }
     }
 }

@@ -13,7 +13,6 @@ namespace api.Models
         public Party Party { get; set; }
         public int? UserId { get; set; }
         public User User { get; set; }
-        public int? ApplicationStatusId { get; set; }
-        public ApplicationStatus ApplicationStatus { get; set; }
+        public string Status { get; set; }
     }
 }

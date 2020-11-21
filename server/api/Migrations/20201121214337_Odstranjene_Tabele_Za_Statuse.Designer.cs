@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Models;
 
 namespace api.Migrations
 {
     [DbContext(typeof(WePartyDBContext))]
-    partial class WePartyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201121214337_Odstranjene_Tabele_Za_Statuse")]
+    partial class Odstranjene_Tabele_Za_Statuse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,9 @@ namespace api.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("ApplicationStatus")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("AppliedAt")
                         .HasColumnType("datetime2");
 
@@ -34,9 +39,6 @@ namespace api.Migrations
 
                     b.Property<int>("Rate")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -57,20 +59,16 @@ namespace api.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ReceiverId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RequesterId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
+                    b.Property<string>("FriendshipStatus")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RecivedId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequesterId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("RequesterId");
 
                     b.ToTable("Friendships");
                 });
@@ -100,11 +98,11 @@ namespace api.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PartyStatus")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -165,21 +163,6 @@ namespace api.Migrations
                     b.Navigation("Party");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("api.Models.Friendship", b =>
-                {
-                    b.HasOne("api.Models.User", "Receiver")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("api.Models.User", "Requester")
-                        .WithMany()
-                        .HasForeignKey("RequesterId");
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Requester");
                 });
 
             modelBuilder.Entity("api.Models.Party", b =>
