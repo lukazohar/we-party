@@ -118,7 +118,6 @@ namespace api.Controllers
             if (updatedParty.Capacity != 0 && previousParty.Capacity != 0) previousParty.Capacity = updatedParty.Capacity;
             if (updatedParty.IsPublic) previousParty.IsPublic = updatedParty.IsPublic;
             if (updatedParty.UserId != 0 && previousParty.UserId != 0) previousParty.UserId = updatedParty.UserId;
-            if (updatedParty.PartyStatusId != 0 && previousParty.PartyStatusId != 0) previousParty.PartyStatusId = updatedParty.PartyStatusId;
             
         }
     }

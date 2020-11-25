@@ -22,14 +22,14 @@ namespace api.Controllers
 
         // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUseres()
+        public async Task<ActionResult<IEnumerable<ApplicationUser>>> GetUseres()
         {
             return await _context.Users.ToListAsync();
         }
 
         // GET: api/User/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<ApplicationUser>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -43,7 +43,7 @@ namespace api.Controllers
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> PutUser(int id, User user)
+        public async Task<ActionResult<ApplicationUser>> PutUser(string id, ApplicationUser user)
         {
             if (id != user.Id)
             {
@@ -77,7 +77,7 @@ namespace api.Controllers
 
         // POST: api/User
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<ApplicationUser>> PostUser(ApplicationUser user)
         {
             user.CreatedAt = DateTime.Now;
 
@@ -89,7 +89,7 @@ namespace api.Controllers
 
         // DELETE: api/User/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<ApplicationUser>> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -113,14 +113,14 @@ namespace api.Controllers
             return user;
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);
         }
 
-        private void UpdateProperties(User previousUser, User updatedUser)
+        private void UpdateProperties(ApplicationUser previousUser, ApplicationUser updatedUser)
         {
-            if (updatedUser.Username != null) previousUser.Username = updatedUser.Username;
+            if (updatedUser.UserName != null) previousUser.UserName = updatedUser.UserName;
             if (updatedUser.FirstName!= null) previousUser.FirstName = updatedUser.FirstName;
             if (updatedUser.LastName != null) previousUser.LastName = updatedUser.LastName;
             if (updatedUser.BirthDate!= null) previousUser.BirthDate = updatedUser.BirthDate;

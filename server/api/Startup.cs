@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using api;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace api
 {
@@ -34,6 +35,10 @@ namespace api
                 options => options.UseSqlServer(Configuration.GetConnectionString("WePartyDatabase"))
                 );
 
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
+                    .AddEntityFrameworkStores<WePartyDBContext>()
+                    .AddDefaultTokenProviders();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +54,7 @@ namespace api
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
