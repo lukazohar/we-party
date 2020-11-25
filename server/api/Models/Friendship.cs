@@ -8,6 +8,7 @@ namespace api.Models
     {
         [Key]
         public int Id { get; set; }
+        public DateTime CreatedAt { get; set; }
         public string? RequesterId { get; set; }
         [ForeignKey("RequesterId")]
         public ApplicationUser Requester { get; set; }
