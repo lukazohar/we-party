@@ -110,15 +110,15 @@ namespace api.Controllers
         
         private void UpdateProperties(Party previousParty, Party updatedParty)
         {
-            if (updatedParty.Title != null) previousParty.Title = updatedParty.Title;
-            if (updatedParty.Description != null) previousParty.Description = updatedParty.Description;
-            if (updatedParty.Date != null) previousParty.Date = updatedParty.Date;
-            if (updatedParty.Price != 0 && previousParty.Price != 0) previousParty.Price = updatedParty.Price;
-            if (updatedParty.Location != null) previousParty.Location = updatedParty.Location;
-            if (updatedParty.Capacity != 0 && previousParty.Capacity != 0) previousParty.Capacity = updatedParty.Capacity;
-            if (updatedParty.IsPublic) previousParty.IsPublic = updatedParty.IsPublic;
-            if (updatedParty.UserId != 0 && previousParty.UserId != 0) previousParty.UserId = updatedParty.UserId;
-            
+            previousParty.Title = updatedParty.Title;
+            previousParty.Description = updatedParty.Description;
+            previousParty.Date = updatedParty.Date;
+            previousParty.Price = updatedParty.Price;
+            previousParty.Location = updatedParty.Location;
+            previousParty.Capacity = updatedParty.Capacity;
+            previousParty.IsPublic = updatedParty.IsPublic;
+            previousParty.UserId = updatedParty.UserId;
+            previousParty.Status = updatedParty.Status;
         }
     }
 }

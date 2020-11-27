@@ -15,7 +15,7 @@ namespace api.Models
         public string Location { get; set; }
         public int Capacity { get; set; }
         public bool IsPublic { get; set; }
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
         public ApplicationUser User { get; set; }
         public string Status { get; set; }
     }
