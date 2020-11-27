@@ -88,7 +88,7 @@ namespace api.Controllers
             }
         }
 
-        public TokenResponse GenerateToken(User userCredentials)
+        public string GenerateToken(User userCredentials)
         {
             var jwtKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(/* pozneje popravi z 'JWTSecret' iz okoljskih datotek */ "when done, set this key from environemnt variables"));
             var credentials = new SigningCredentials(jwtKey, SecurityAlgorithms.HmacSha256);
@@ -100,11 +100,7 @@ namespace api.Controllers
 
             var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(14), signingCredentials: credentials);
 
-            TokenResponse encodedResponse = new TokenResponse
-            {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-                ExpiresIn = token.ValidTo
-            };
+            var encodedResponse = new JwtSecurityTokenHandler().WriteToken(token);
 
             return encodedResponse;
         }
