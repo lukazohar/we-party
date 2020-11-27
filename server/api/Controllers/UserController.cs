@@ -29,7 +29,7 @@ namespace api.Controllers
 
         // GET: api/User/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApplicationUser>> GetUser(int id)
+        public async Task<ActionResult<ApplicationUser>> GetUser(string id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -89,7 +89,7 @@ namespace api.Controllers
 
         // DELETE: api/User/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ApplicationUser>> DeleteUser(int id)
+        public async Task<ActionResult<ApplicationUser>> DeleteUser(string id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -120,11 +120,11 @@ namespace api.Controllers
 
         private void UpdateProperties(ApplicationUser previousUser, ApplicationUser updatedUser)
         {
-            if (updatedUser.UserName != null) previousUser.UserName = updatedUser.UserName;
-            if (updatedUser.FirstName!= null) previousUser.FirstName = updatedUser.FirstName;
-            if (updatedUser.LastName != null) previousUser.LastName = updatedUser.LastName;
-            if (updatedUser.BirthDate!= null) previousUser.BirthDate = updatedUser.BirthDate;
-            if (updatedUser.Description!= null) previousUser.Description = updatedUser.Description;
+            previousUser.UserName = updatedUser.UserName;
+            previousUser.FirstName = updatedUser.FirstName;
+            previousUser.LastName = updatedUser.LastName;
+            previousUser.BirthDate = updatedUser.BirthDate;
+            previousUser.Description = updatedUser.Description;
         }
     }
 }

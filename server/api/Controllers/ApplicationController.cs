@@ -50,7 +50,11 @@ namespace api.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(application).State = EntityState.Modified;
+            var previousApplication = await _context.Applications.FindAsync(id);
+
+            UpdateProperties(previousApplication, application);
+
+            _context.Entry(previousApplication).State = EntityState.Modified;
 
             try
             {
@@ -75,6 +79,8 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult<Application>> PostApplication(Application application)
         {
+            application.AppliedAt = DateTime.Now;
+
             _context.Applications.Add(application);
             await _context.SaveChangesAsync();
 
@@ -100,6 +106,12 @@ namespace api.Controllers
         private bool ApplicationExists(int id)
         {
             return _context.Applications.Any(e => e.Id == id);
+        }
+
+        private void UpdateProperties(Application previousApplication, Application updatedApplication)
+        {
+            previousApplication.Rate = updatedApplication.Rate;
+            previousApplication.Status = updatedApplication.Status;
         }
     }
 }

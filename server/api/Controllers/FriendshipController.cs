@@ -118,7 +118,7 @@ namespace api.Controllers
         
         private void UpdateProperties(Friendship previousFriendship, Friendship updatedFriendship)
         {
-            if (previousFriendship != updatedFriendship) previousFriendship.Status = updatedFriendship.Status;
+            previousFriendship.Status = updatedFriendship.Status;
         }
     }
 }
