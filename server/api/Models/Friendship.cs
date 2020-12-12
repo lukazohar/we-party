@@ -12,11 +12,11 @@ namespace api.Models
 
         [ForeignKey("Requester")]
         public string RequesterId { get; set; }
-        public ApplicationUser Requester { get; set; }
+        public virtual ApplicationUser Requester { get; set; }
 
         [ForeignKey("Receiver")] 
         public string ReceiverId { get; set; }
-        public ApplicationUser Receiver { get; set; }
+        public virtual ApplicationUser Receiver { get; set; }
         public string Status { get; set; }
     }
 }

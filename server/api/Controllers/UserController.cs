@@ -22,7 +22,7 @@ namespace api.Controllers
 
         // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ApplicationUser>>> GetUseres()
+        public async Task<ActionResult<IEnumerable<ApplicationUser>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }

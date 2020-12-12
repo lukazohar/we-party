@@ -55,7 +55,7 @@ namespace api.Controllers
         }
 
         [HttpPost("token")]
-        public async Task<ActionResult<string>> Login(User userCredentials)
+        public async Task<ActionResult<string>> Login(RegisterUser userCredentials)
         {
             if (await AuthenticateUserCredentials(userCredentials))
             {
@@ -74,7 +74,7 @@ namespace api.Controllers
             }
         }
 
-        public async Task<bool> AuthenticateUserCredentials(User credentials)
+        public async Task<bool> AuthenticateUserCredentials(RegisterUser credentials)
         {
             var result = await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, lockoutOnFailure: false);
 
@@ -88,7 +88,7 @@ namespace api.Controllers
             }
         }
 
-        public string GenerateToken(User userCredentials)
+        public string GenerateToken(RegisterUser userCredentials)
         {
             var jwtKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(/* pozneje popravi z 'JWTSecret' iz okoljskih datotek */ "when done, set this key from environemnt variables"));
             var credentials = new SigningCredentials(jwtKey, SecurityAlgorithms.HmacSha256);
