@@ -32,10 +32,11 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<WePartyDBContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("WePartyDatabase"))
+                options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("WePartyDatabase"))
                 );
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
