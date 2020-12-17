@@ -6,18 +6,25 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     tools:context="com.example.we_party.MainActivity">
-    <TextView
-        android:id="@+id/text_view_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
+
     <Button
-        android:id="@+id/button_parse"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp"
-        android:text="parse" />
+        android:layout_marginBottom="10dp"
+        android:text="Click me!" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/button">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="24sp"
+            android:id="@+id/fetcheddata"
+            android:hint="Fetched Text Here!!!"/>
+    </ScrollView>
+
 </RelativeLayout>
