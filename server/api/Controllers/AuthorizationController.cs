@@ -74,6 +74,8 @@ namespace api.Controllers
             }
         }
 
+        [HttpGet]
+        [NonAction]
         public async Task<bool> AuthenticateUserCredentials(RegisterUser credentials)
         {
             var result = await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, lockoutOnFailure: false);
@@ -88,6 +90,8 @@ namespace api.Controllers
             }
         }
 
+        [HttpGet]
+        [NonAction]
         public string GenerateToken(RegisterUser userCredentials)
         {
             var jwtKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(/* pozneje popravi z 'JWTSecret' iz okoljskih datotek */ "when done, set this key from environemnt variables"));

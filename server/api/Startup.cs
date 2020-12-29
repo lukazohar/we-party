@@ -54,6 +54,14 @@ namespace api
                 }
                 );
 
+            services.AddSwaggerGen(config =>
+            {
+                config.SwaggerDoc("WeParty", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "We Party",
+                    Version = "WeParty"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +83,8 @@ namespace api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
         }
     }
 }
