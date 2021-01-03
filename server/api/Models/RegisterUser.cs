@@ -7,8 +7,7 @@ namespace api.Models
 {
     public class RegisterUser
     {
-        public string Email { get; set; }
-        public string Username { get; set; }
+        public string Username { get; set; } // Userame je lahko Username ali Email
         public string Password { get; set; }
     }
 }

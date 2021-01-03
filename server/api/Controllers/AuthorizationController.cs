@@ -9,6 +9,7 @@ using api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -64,7 +65,8 @@ namespace api.Controllers
                 if (token != null)
                 {
                     return Ok(token);
-                } else
+                }
+                else
                 {
                     return StatusCode(500);
                 }
@@ -78,7 +80,18 @@ namespace api.Controllers
         [NonAction]
         public async Task<bool> AuthenticateUserCredentials(RegisterUser credentials)
         {
-            var result = await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, lockoutOnFailure: false);
+            Microsoft.AspNetCore.Identity.SignInResult result = new Microsoft.AspNetCore.Identity.SignInResult();
+
+            if (credentials.Username != null)
+            {
+                result = await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, lockoutOnFailure: false);
+
+                if (! result.Succeeded)
+                {
+                    var user = _context.Users.FirstOrDefault(user => user.Email == credentials.Username);
+                    result = await _signInManager.PasswordSignInAsync(user.UserName, credentials.Password, false, lockoutOnFailure: false);
+                }
+            }
 
             if (result.Succeeded)
             {
@@ -98,8 +111,7 @@ namespace api.Controllers
             var credentials = new SigningCredentials(jwtKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>();
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, userCredentials.Username));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email, userCredentials.Email));
+            if (userCredentials.Username != null) claims.Add(new Claim(JwtRegisteredClaimNames.Sub, userCredentials.Username));
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
 
             var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(14), signingCredentials: credentials);
