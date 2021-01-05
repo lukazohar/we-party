@@ -16,7 +16,7 @@ import { CoreModule } from '../core/core.module';
     HttpClientModule,
     IonicStorageModule.forRoot(),
   ],
-  providers: [AuthGuardService, LoginAuthGuardService],
+  providers: [AuthGuardService, LoginAuthGuardService, AuthService],
   exports: [AuthService, LoginAuthGuardService],
 })
 export class AuthModule {}

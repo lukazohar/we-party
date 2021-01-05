@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { forkJoin, from, Observable } from 'rxjs';
 import { AuthResponse } from './auth-response';
 import { User } from './user.interface';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
@@ -39,6 +39,7 @@ export class AuthService {
   async logout() {
     await this.storage.remove('ACCESS_TOKEN');
     await this.storage.remove('ID');
+
     await this.router.navigateByUrl('auth');
   }
 
