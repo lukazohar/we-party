@@ -13,6 +13,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { LoginPageModule } from './core/login/login.module';
 import { PartiesPageModule } from './pages/parties/parties.module';
 import { ApplicationsPageModule } from './pages/applications/applications.module';
+import { FriendsPageModule } from './pages/friends/friends.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ApplicationsPageModule } from './pages/applications/applications.module
     // LoginPageModule,
     // PartiesPageModule,
     // ApplicationsPageModule,
+    // FriendsPageModule,
   ],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
