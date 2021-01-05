@@ -1,15 +1,16 @@
-<ion-content>
-  <form #form="ngForm" (ngSubmit)="register(form)">
+<div class="content">
+  <form [formGroup]="formGroup" (ngSubmit)="login(formGroup)">
     <ion-grid>
       <ion-row justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div text-center>
-            <h3>Create your account!</h3>
+            <h3 class="ion-margin">Login</h3>
           </div>
           <div padding class="ion-margin-top">
             <ion-item class="ion-margin-top ion-margin-bottom">
               <ion-input
                 name="username"
+                formControlName="username"
                 type="text"
                 placeholder="username or email"
                 ngModel
@@ -19,17 +20,9 @@
             <ion-item class="ion-margin-top ion-margin-bottom">
               <ion-input
                 name="password"
+                formControlName="password"
                 type="password"
                 placeholder="Password"
-                ngModel
-                required
-              ></ion-input>
-            </ion-item>
-            <ion-item class="ion-margin-top ion-margin-bottom">
-              <ion-input
-                name="confirm"
-                type="password"
-                placeholder="Confirm password"
                 ngModel
                 required
               ></ion-input>
@@ -40,7 +33,7 @@
               color="primary"
               size="large"
               type="submit"
-              [disabled]="form.invalid"
+              [disabled]="formGroup.invalid"
               expand="block"
               >Login</ion-button
             >
@@ -49,4 +42,4 @@
       </ion-row>
     </ion-grid>
   </form>
-</ion-content>
+</div>
