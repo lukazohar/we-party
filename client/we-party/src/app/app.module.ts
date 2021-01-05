@@ -12,6 +12,7 @@ import { NavbarComponent } from './core/navbar/navbar.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { LoginPageModule } from './core/login/login.module';
 import { PartiesPageModule } from './pages/parties/parties.module';
+import { ApplicationsPageModule } from './pages/applications/applications.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PartiesPageModule } from './pages/parties/parties.module';
     FooterComponent,
     // LoginPageModule,
     // PartiesPageModule,
+    // ApplicationsPageModule,
   ],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
