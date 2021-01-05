@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { LoginPageModule } from './core/login/login.module';
+import { PartiesPageModule } from './pages/parties/parties.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LoginPageModule } from './core/login/login.module';
     NavbarComponent,
     FooterComponent,
     // LoginPageModule,
+    // PartiesPageModule,
   ],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
