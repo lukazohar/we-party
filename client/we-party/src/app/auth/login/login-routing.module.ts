@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginAuthGuardService } from '../login-auth-guard.service';
 
 import { LoginPage } from './login.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPage
-  }
+    canActivate: [LoginAuthGuardService],
+    component: LoginPage,
+  },
 ];
 
 @NgModule({

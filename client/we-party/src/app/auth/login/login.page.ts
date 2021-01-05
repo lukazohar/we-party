@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastService } from '../toast/toast.service';
+import { ToastService } from 'src/app/core/toast/toast.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,11 @@ import { ToastService } from '../toast/toast.service';
 export class LoginPage implements OnInit {
   formGroup: FormGroup;
 
-  constructor(private router: Router, private toast: ToastService) {}
+  constructor(
+    private router: Router,
+    private toast: ToastService,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit() {
     this.formGroup = new FormGroup({
