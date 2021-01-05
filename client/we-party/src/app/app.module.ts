@@ -16,17 +16,17 @@ import { ApplicationsPageModule } from './pages/applications/applications.module
 import { FriendsPageModule } from './pages/friends/friends.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    // LoginPageModule,
-    // PartiesPageModule,
-    // ApplicationsPageModule,
-    // FriendsPageModule,
-  ],
+  declarations: [AppComponent, NavbarComponent, FooterComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    LoginPageModule,
+    PartiesPageModule,
+    ApplicationsPageModule,
+    FriendsPageModule,
+  ],
   providers: [
     StatusBar,
     SplashScreen,
