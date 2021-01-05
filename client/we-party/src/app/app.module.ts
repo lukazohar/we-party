@@ -14,6 +14,7 @@ import { LoginPageModule } from './core/login/login.module';
 import { PartiesPageModule } from './pages/parties/parties.module';
 import { ApplicationsPageModule } from './pages/applications/applications.module';
 import { FriendsPageModule } from './pages/friends/friends.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -21,6 +22,7 @@ import { FriendsPageModule } from './pages/friends/friends.module';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    CoreModule,
     AppRoutingModule,
     LoginPageModule,
     PartiesPageModule,
