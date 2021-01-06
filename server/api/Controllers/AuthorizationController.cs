@@ -56,7 +56,7 @@ namespace api.Controllers
         }
 
         [HttpPost("token")]
-        public async Task<ActionResult<string>> Login(RegisterUser userCredentials)
+        public async Task<ActionResult<LoginUser>> Login(RegisterUser userCredentials)
         {
             if (await AuthenticateUserCredentials(userCredentials))
             {
@@ -64,13 +64,37 @@ namespace api.Controllers
 
                 if (token != null)
                 {
-                    return Ok(token);
+                    if (userCredentials.Username != null)
+                    {
+                        var dbUser = _context.Users.FirstOrDefault(user => user.UserName== userCredentials.Username);
+                        LoginUser user = new LoginUser()
+                        {
+                            Id = dbUser.Id,
+                            Username = dbUser.UserName,
+                            Email = dbUser.Email,
+                            AccessToken = token,
+                        };
+                        return Ok(user);
+                    }
+                    else
+                    {
+                        var dbUser = _context.Users.FirstOrDefault(user => user.Email== userCredentials.Username);
+                        LoginUser user = new LoginUser()
+                        {
+                            Id = dbUser.Id,
+                            Username = dbUser.UserName,
+                            Email = dbUser.Email,
+                            AccessToken = token,
+                        };
+                        return Ok(user);
+                    }
                 }
                 else
                 {
                     return StatusCode(500);
                 }
-            } else
+            }
+            else
             {
                 return Unauthorized();
             }
