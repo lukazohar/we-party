@@ -56,7 +56,7 @@ namespace api.Controllers
         }
 
         [HttpPost("token")]
-        public async Task<ActionResult<LoginUser>> Login(RegisterUser userCredentials)
+        public async Task<ActionResult<LoginResponse>> Login(RegisterUser userCredentials)
         {
             if (await AuthenticateUserCredentials(userCredentials))
             {
@@ -66,25 +66,31 @@ namespace api.Controllers
                 {
                     if (userCredentials.Username != null)
                     {
-                        var dbUser = _context.Users.FirstOrDefault(user => user.UserName== userCredentials.Username);
-                        LoginUser user = new LoginUser()
+                        var dbUser = _context.Users.FirstOrDefault(user => user.UserName == userCredentials.Username);
+                        LoginResponse user = new LoginResponse()
                         {
-                            Id = dbUser.Id,
-                            Username = dbUser.UserName,
-                            Email = dbUser.Email,
-                            AccessToken = token,
+                            User = new LoginUser()
+                            {
+                                Id = dbUser.Id,
+                                Username = dbUser.UserName,
+                                Email = dbUser.Email,
+                                AccessToken = token,
+                            }
                         };
                         return Ok(user);
                     }
                     else
                     {
-                        var dbUser = _context.Users.FirstOrDefault(user => user.Email== userCredentials.Username);
-                        LoginUser user = new LoginUser()
+                        var dbUser = _context.Users.FirstOrDefault(user => user.Email == userCredentials.Username);
+                        LoginResponse user = new LoginResponse()
                         {
-                            Id = dbUser.Id,
-                            Username = dbUser.UserName,
-                            Email = dbUser.Email,
-                            AccessToken = token,
+                            User = new LoginUser()
+                            {
+                                Id = dbUser.Id,
+                                Username = dbUser.UserName,
+                                Email = dbUser.Email,
+                                AccessToken = token,
+                            }
                         };
                         return Ok(user);
                     }
@@ -110,7 +116,7 @@ namespace api.Controllers
             {
                 result = await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, lockoutOnFailure: false);
 
-                if (! result.Succeeded)
+                if (!result.Succeeded)
                 {
                     var user = _context.Users.FirstOrDefault(user => user.Email == credentials.Username);
                     result = await _signInManager.PasswordSignInAsync(user.UserName, credentials.Password, false, lockoutOnFailure: false);

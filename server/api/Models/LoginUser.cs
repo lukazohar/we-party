@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
+    public class LoginResponse
+    {
+        public LoginUser User { get; set; }
+    }
     public class LoginUser
     {
         public string Id { get; set; }
