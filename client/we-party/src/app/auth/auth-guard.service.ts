@@ -11,7 +11,7 @@ export class AuthGuardService implements CanActivate {
     return from(this.auth.isLoggedIn()).pipe(
       tap((isLoggedIn) => {
         if (!isLoggedIn) {
-          this.router.navigate(['auth']);
+          this.router.navigate(['login']);
         }
       }),
     );

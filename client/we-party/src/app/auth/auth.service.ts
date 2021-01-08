@@ -28,7 +28,7 @@ export class AuthService {
       switchMap((res: AuthResponse) => {
         response = res;
         return forkJoin([
-          from(this.storage.set('ACCESS_TOKEN', res.user.access_token)),
+          from(this.storage.set('ACCESS_TOKEN', res.user.accessToken)),
           from(this.storage.set('ID', res.user.id)),
         ]);
       }),
@@ -40,7 +40,7 @@ export class AuthService {
     await this.storage.remove('ACCESS_TOKEN');
     await this.storage.remove('ID');
 
-    await this.router.navigateByUrl('auth');
+    await this.router.navigateByUrl('login');
   }
 
   async isLoggedIn() {
