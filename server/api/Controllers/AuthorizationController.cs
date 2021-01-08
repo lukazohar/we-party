@@ -9,7 +9,6 @@ using api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -119,7 +118,11 @@ namespace api.Controllers
                 if (!result.Succeeded)
                 {
                     var user = _context.Users.FirstOrDefault(user => user.Email == credentials.Username);
-                    result = await _signInManager.PasswordSignInAsync(user.UserName, credentials.Password, false, lockoutOnFailure: false);
+
+                    if (user != null)
+                    {
+                        result = await _signInManager.PasswordSignInAsync(user.UserName, credentials.Password, false, lockoutOnFailure: false);
+                    }
                 }
             }
 
