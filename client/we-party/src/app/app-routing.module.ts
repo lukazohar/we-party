@@ -5,13 +5,13 @@ import { LoginAuthGuardService } from './auth/login-auth-guard.service';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     canActivate: [LoginAuthGuardService],
     loadChildren: () =>
       import('./auth/login/login.module').then((m) => m.LoginPageModule),
   },
   {
-    path: 'test',
+    path: '',
     canActivate: [AuthGuardService],
     loadChildren: () =>
       import('./pages/parties/parties.module').then((m) => m.PartiesPageModule),

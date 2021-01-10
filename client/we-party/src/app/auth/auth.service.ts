@@ -8,6 +8,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { HTTP } from '@ionic-native/http/ngx';
 
 @Injectable({
   providedIn: 'root',

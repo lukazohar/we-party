@@ -6,6 +6,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { LoginAuthGuardService } from './login-auth-guard.service';
 import { AuthService } from './auth.service';
 import { CoreModule } from '../core/core.module';
+import { HTTP } from '@ionic-native/http/ngx';
 
 @NgModule({
   declarations: [],
@@ -16,7 +17,7 @@ import { CoreModule } from '../core/core.module';
     HttpClientModule,
     IonicStorageModule.forRoot(),
   ],
-  providers: [AuthGuardService, LoginAuthGuardService, AuthService],
+  providers: [HTTP, AuthGuardService, LoginAuthGuardService, AuthService],
   exports: [AuthService, LoginAuthGuardService],
 })
 export class AuthModule {}

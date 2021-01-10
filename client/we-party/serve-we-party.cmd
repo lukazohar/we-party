@@ -1,1 +1,1 @@
-ionic capacitor run android -l --external
+ionic capacitor run android -l --host 192.168.1.114

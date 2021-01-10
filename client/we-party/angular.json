@@ -12,6 +12,13 @@
       "schematics": {},
       "architect": {
         "build": {
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "src/certificates",
+              "output": "certificates"
+            }
+          ],
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "www",
