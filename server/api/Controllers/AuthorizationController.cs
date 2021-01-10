@@ -140,7 +140,7 @@ namespace api.Controllers
         [NonAction]
         public string GenerateToken(RegisterUser userCredentials)
         {
-            var jwtKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(/* pozneje popravi z 'JWTSecret' iz okoljskih datotek */ "when done, set this key from environemnt variables"));
+            var jwtKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(/* pozneje popravi z 'JWTSecret' iz okoljskih datotek */ "b6)Xad<#W!bW3Vdg"));
             var credentials = new SigningCredentials(jwtKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>();
