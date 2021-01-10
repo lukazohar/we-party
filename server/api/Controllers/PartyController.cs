@@ -9,7 +9,7 @@ using api.Models;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/parties")]
     [ApiController]
     public class PartyController : ControllerBase
     {

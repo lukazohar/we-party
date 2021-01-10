@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { AuthGuardService } from 'src/app/auth/auth-guard.service';
 import { PartiesPage } from './parties.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: PartiesPage
-  }
+    canActivate: [AuthGuardService],
+    component: PartiesPage,
+  },
 ];
 
 @NgModule({

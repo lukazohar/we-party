@@ -8,7 +8,7 @@ using api.Models;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/friends")]
     [ApiController]
     public class FriendshipController : ControllerBase
     {

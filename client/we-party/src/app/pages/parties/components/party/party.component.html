@@ -1,0 +1,126 @@
+<ion-content>
+  <ion-toolbar color="secondary">
+    <ion-title>Party</ion-title>
+  </ion-toolbar>
+
+  <form [formGroup]="formGroup">
+    <ion-item>
+      <ion-label>Title: </ion-label>
+      <ion-input
+        *ngIf="!displayOnly"
+        type="text"
+        formControlName="title"
+        name="title"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Description: </ion-label>
+      <ion-textarea
+        *ngIf="!displayOnly"
+        type="text"
+        formControlName="description"
+        name="description"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date: </ion-label>
+      <ion-datetime
+        *ngIf="!displayOnly"
+        formControlName="date"
+        name="date"
+        [displayFormat]="'DD MMM, YYYY HH:mm'"
+      ></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Price: </ion-label>
+      <ion-input
+        *ngIf="!displayOnly"
+        type="number"
+        formControlName="price"
+        name="price"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Location: </ion-label>
+      <ion-input
+        *ngIf="!displayOnly"
+        type="text"
+        formControlName="location"
+        name="location"
+      ></ion-input>
+      <ion-text *ngIf="displayOnly" name="location">
+        {{ item.location }}
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Capacity: </ion-label>
+      <ion-input
+        *ngIf="!displayOnly"
+        type="number"
+        formControlName="capacity"
+        name="capacity"
+      ></ion-input>
+      <ion-text *ngIf="displayOnly" name="capacity">
+        {{ item.capacity }}
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Public: </ion-label>
+      <ion-checkbox
+        *ngIf="!displayOnly"
+        formControlName="isPublic"
+        name="isPublic"
+      ></ion-checkbox>
+      <ion-text *ngIf="displayOnly" name="isPublic">
+        {{ item.isPublic }}
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Status</ion-label>
+      <ion-select formControlName="status" okText="Okay" cancelText="Dismiss">
+        <ion-select-option value="upcoming">Upcoming</ion-select-option>
+        <ion-select-option value="finished">Finished</ion-select-option>
+        <ion-select-option value="canceled">Canceled</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="solid" color="danger" (click)="delete()">
+        Delete
+        <ion-icon slot="end" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="back()"> Back </ion-button>
+      <ion-button
+        *ngIf="displayOnly"
+        fill="solid"
+        color="primary"
+        (click)="displayOnly = !displayOnly"
+      >
+        Edit
+        <ion-icon slot="end" name="save"></ion-icon>
+      </ion-button>
+      <ion-button
+        *ngIf="!displayOnly"
+        fill="solid"
+        color="success"
+        (click)="save()"
+      >
+        Save
+        <ion-icon slot="end" name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

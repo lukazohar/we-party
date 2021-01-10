@@ -1,20 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PartiesPageRoutingModule } from './parties-routing.module';
-
+import { HttpClientModule } from '@angular/common/http';
+import { AuthModule } from 'src/app/auth/auth.module';
 import { PartiesPage } from './parties.page';
+import { PartyComponent } from './components/party/party.component';
+import { PartiesPageRoutingModule } from './parties-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PartiesPageRoutingModule
+    PartiesPageRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    AuthModule,
   ],
-  declarations: [PartiesPage]
+  declarations: [PartiesPage, PartyComponent],
 })
 export class PartiesPageModule {}
