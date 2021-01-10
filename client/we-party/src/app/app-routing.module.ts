@@ -12,9 +12,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [AuthGuardService],
-    loadChildren: () =>
-      import('./pages/parties/parties.module').then((m) => m.PartiesPageModule),
+    redirectTo: 'parties',
+    pathMatch: 'full',
   },
   {
     path: 'parties',
