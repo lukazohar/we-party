@@ -81,6 +81,8 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult<Party>> PostParty(Party party)
         {
+            var user = (ApplicationUser)HttpContext.Items.First().Value;
+            party.UserId = user.Id;
             party.Date = DateTime.Now;
             party.CreatedAt = DateTime.Now;
 
