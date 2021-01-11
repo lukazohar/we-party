@@ -3,9 +3,14 @@
     <ion-title>Party</ion-title>
   </ion-toolbar>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    *ngIf="displayOnly && owns"
+  >
     <ion-fab-button color="success" (click)="apply(item.id)">
-      Apply
+      <ion-text>Apply</ion-text>
     </ion-fab-button>
   </ion-fab>
 
@@ -109,7 +114,7 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="owns">
       <ion-button fill="solid" color="danger" (click)="delete()">
         Delete
         <ion-icon slot="end" name="trash-outline"></ion-icon>
@@ -118,7 +123,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="back()"> Back </ion-button>
       <ion-button
-        *ngIf="displayOnly"
+        *ngIf="displayOnly && owns"
         fill="solid"
         color="primary"
         (click)="displayOnly = !displayOnly"
@@ -127,7 +132,7 @@
         <ion-icon slot="end" name="save"></ion-icon>
       </ion-button>
       <ion-button
-        *ngIf="!displayOnly"
+        *ngIf="!displayOnly && owns"
         fill="solid"
         color="success"
         (click)="save()"

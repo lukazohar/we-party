@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ToastService } from 'src/app/core/toast/toast.service';
 import { IApplication } from 'src/app/pages/applications/interfaces/application.interface';
 import { ApplicationService } from 'src/app/pages/applications/services/application.service';
@@ -23,6 +26,7 @@ export class PartyComponent implements OnInit {
     private toastService: ToastService,
     private partyService: PartyService,
     private applicationService: ApplicationService,
+    private storage: Storage,
   ) {}
 
   ngOnInit() {
@@ -114,4 +118,7 @@ export class PartyComponent implements OnInit {
       },
     );
   }
+
+  owns = (): Observable<boolean> =>
+    from(this.storage.get('ID')).pipe(map((id) => this.item.id === id));
 }
