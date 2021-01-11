@@ -41,7 +41,10 @@ namespace api.Controllers
         {
             var user = new ApplicationUser()
             {
-                UserName = newUser.UserName
+                UserName = newUser.UserName,
+                Email = newUser.Email,
+                FirstName = newUser.FirstName,
+                LastName = newUser.LastName,
             };
 
             var result = await _userManager.CreateAsync(user, newUser.Password);

@@ -9,7 +9,7 @@ using api.Models;
 namespace api.Controllers
 {
     [Authorize]
-    [Route("api/friends")]
+    [Route("api/friendships")]
     [ApiController]
     public class FriendshipController : ControllerBase
     {
@@ -88,7 +88,7 @@ namespace api.Controllers
             }
 
             friendship.CreatedAt = DateTime.Now;
-            friendship.Status = "pending";
+            friendship.Status = "Pending";
 
             _context.Friendships.Add(friendship);
             await _context.SaveChangesAsync();
@@ -119,7 +119,7 @@ namespace api.Controllers
         
         private void UpdateProperties(Friendship previousFriendship, Friendship updatedFriendship)
         {
-            previousFriendship.Status = updatedFriendship.Status;
+            previousFriendship.Status = "Confirmed";
         }
     }
 }
