@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using api.Middleware;
+using api.Services;
 
 namespace api
 {
@@ -37,35 +39,6 @@ namespace api
                     .AddEntityFrameworkStores<WePartyDBContext>()
                     .AddDefaultTokenProviders();
 
-
-            services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options => {
-                options.RequireHttpsMetadata = false;
-            });
-
-
-
-            /*services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    RequireExpirationTime = false,
-                    RequireSignedTokens = false,
-                    ValidateIssuerSigningKey = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetConnectionString("JWTSecret"))),
-                    ValidateIssuer = false,
-                    // ValidIssuer = Configuration.GetSection("TokenProviderOptions:Issuer").Value,
-                    ValidateAudience = false,
-                    // ValidAudience = Configuration.GetSection("TokenProviderOptions:Audience").Value,
-                    ValidateLifetime = false,
-                    // ClockSkew = TimeSpan.Zero
-                };
-            }); */
-
-
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>
                 {
@@ -83,6 +56,8 @@ namespace api
                 });
             });
 
+            services.AddScoped<IUserService, UserService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,13 +70,15 @@ namespace api
 
             app.UseCors("CorsPolicy");
 
-            app.UseHttpsRedirection();
+            app.UseMiddleware<JwtMiddleware>();
 
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
             app.UseAuthentication();
+
 
             app.UseEndpoints(endpoints =>
             {

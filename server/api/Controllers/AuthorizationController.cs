@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using api.Models;
+using api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -21,15 +22,18 @@ namespace api.Controllers
         private readonly WePartyDBContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private IUserService _userService;
         public AuthorizationController(
             WePartyDBContext context,
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager
+            SignInManager<ApplicationUser> signInManager,
+            IUserService userService
         )
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
         }
 
         [HttpPost("register")]
@@ -55,103 +59,14 @@ namespace api.Controllers
         }
 
         [HttpPost("token")]
-        public async Task<ActionResult<LoginResponse>> Login(RegisterUser userCredentials)
+        public async Task<ActionResult<AuthenticateResponse>> Login(AuthenticateUser userCredentials)
         {
-            if (await AuthenticateUserCredentials(userCredentials))
+            var result = _userService.Authenticate(userCredentials);
+            if (result != null)
             {
-                var token = GenerateToken(userCredentials);
-
-                if (token != null)
-                {
-                    if (userCredentials.Username != null)
-                    {
-                        var dbUser = _context.Users.FirstOrDefault(user => user.UserName == userCredentials.Username);
-                        LoginResponse user = new LoginResponse()
-                        {
-                            User = new LoginUser()
-                            {
-                                Id = dbUser.Id,
-                                Username = dbUser.UserName,
-                                Email = dbUser.Email,
-                                AccessToken = token,
-                            }
-                        };
-                        return Ok(user);
-                    }
-                    else
-                    {
-                        var dbUser = _context.Users.FirstOrDefault(user => user.Email == userCredentials.Username);
-                        LoginResponse user = new LoginResponse()
-                        {
-                            User = new LoginUser()
-                            {
-                                Id = dbUser.Id,
-                                Username = dbUser.UserName,
-                                Email = dbUser.Email,
-                                AccessToken = token,
-                            }
-                        };
-                        return Ok(user);
-                    }
-                }
-                else
-                {
-                    return StatusCode(500);
-                }
+                return Ok(result);
             }
-            else
-            {
-                return Unauthorized();
-            }
-        }
-
-        [HttpGet]
-        [NonAction]
-        public async Task<bool> AuthenticateUserCredentials(RegisterUser credentials)
-        {
-            Microsoft.AspNetCore.Identity.SignInResult result = new Microsoft.AspNetCore.Identity.SignInResult();
-
-            if (credentials.Username != null)
-            {
-                result = await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, false, lockoutOnFailure: false);
-
-                if (!result.Succeeded)
-                {
-                    var user = _context.Users.FirstOrDefault(user => user.Email == credentials.Username);
-
-                    if (user != null)
-                    {
-                        result = await _signInManager.PasswordSignInAsync(user.UserName, credentials.Password, false, lockoutOnFailure: false);
-                    }
-                }
-            }
-
-            if (result.Succeeded)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        [HttpGet]
-        [NonAction]
-        public string GenerateToken(RegisterUser userCredentials)
-        {
-            var jwtKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(/* pozneje popravi z 'JWTSecret' iz okoljskih datotek */ "b6)Xad<#W!bW3Vdg"));
-            var credentials = new SigningCredentials(jwtKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>();
-            if (userCredentials.Username != null) claims.Add(new Claim(JwtRegisteredClaimNames.Sub, userCredentials.Username));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-
-            var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(14), signingCredentials: credentials);
-
-            var encodedResponse = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return encodedResponse;
+            return Unauthorized();
         }
     }
 }

@@ -1,32 +1,37 @@
 <div class="content">
+  <ion-title class="ion-text-left">
+    <h1>Parties</h1>
+  </ion-title>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="primary" (click)="add()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <div [@listAnimation]="parties">
-    <div *ngIf="parties?.length > 0; else emptyArrayTemplate">
-      <ion-card *ngFor="let party of parties" (click)="show(party)">
-        <ion-card-header>
-          <ion-card-title> {{ party.title }} </ion-card-title>
-        </ion-card-header>
+  <div
+    [@listAnimation]="parties"
+    *ngIf="parties?.length > 0; else noDataTemplate"
+  >
+    <ion-card *ngFor="let party of parties" (click)="show(party)">
+      <ion-card-header>
+        <ion-card-title> {{ party.title }} </ion-card-title>
+      </ion-card-header>
 
-        <ion-card-content>
-          <ion-text>
-            <p>{{ party.date | date: 'medium' }}</p>
-          </ion-text>
-          <ion-text>
-            <p>{{ party.description }}</p>
-          </ion-text>
-          <ion-text>
-            <p>Capacity {{ party.price }}</p>
-          </ion-text>
-        </ion-card-content>
-      </ion-card>
-    </div>
-    <ng-template #emptyArrayTemplate>
+      <ion-card-content>
+        <ion-text>
+          <p>{{ party.date | date: 'medium' }}</p>
+        </ion-text>
+        <ion-text>
+          <p>{{ party.description }}</p>
+        </ion-text>
+        <ion-text>
+          <p>Capacity {{ party.price }}</p>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+    <ng-template #noDataTemplate>
       <ion-text class="ion-text-center">
-        <h1>No Parties :/</h1>
+        <h1>Nothing Found :(</h1>
       </ion-text>
     </ng-template>
   </div>

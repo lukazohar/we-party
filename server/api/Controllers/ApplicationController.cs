@@ -9,6 +9,7 @@ using api.Models;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/applications")]
     [ApiController]
     public class ApplicationController : ControllerBase
