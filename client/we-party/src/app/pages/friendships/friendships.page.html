@@ -3,32 +3,52 @@
     <h1>Friendships</h1>
   </ion-title>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="primary" (click)="add()">
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
   <div
     [@listAnimation]="friendships"
-    *ngIf="friendships?.length > 0; else noDataTemplate"
+    *ngIf="users?.length > 0; else noDataTemplate"
   >
-    <ion-card *ngFor="let friendship of friendships" (click)="show(friendship)">
-      <ion-card-header>
-        <ion-card-title>
-          <ion-text class="ion-text-start"> {{ friendship.title }} </ion-text>
-        </ion-card-title>
-      </ion-card-header>
-
+    <ion-card *ngFor="let user of users">
       <ion-card-content>
-        <ion-text>
-          <p>{{ friendship.date | date: 'medium' }}</p>
-        </ion-text>
-        <ion-text>
-          <p>{{ friendship.description }}</p>
-        </ion-text>
-        <ion-text>
-          <p>Capacity {{ friendship.price }}</p>
-        </ion-text>
+        <ion-item>
+          <ion-button
+            (click)="add(userId, user.id)"
+            *ngIf="user.friendship?.status == null"
+            size="medium"
+            slot="start"
+          >
+            <ion-icon name="add-outline"></ion-icon
+          ></ion-button>
+          <ion-button
+            (click)="decline(user.friendship.id)"
+            *ngIf="user.friendship?.status == 'Pending' && user.friendship?.requesterId === userId"
+            color="light"
+            size="medium"
+            slot="start"
+          >
+            <ion-icon name="send-outline"></ion-icon
+          ></ion-button>
+          <ion-button
+            (click)="decline(user.friendship.id)"
+            *ngIf="user.friendship?.status == 'Confirmed'"
+            size="medium"
+            slot="start"
+            color="danger"
+          >
+            <ion-icon name="close-outline"></ion-icon
+          ></ion-button>
+          <ion-button
+            (click)="confirm(user.friendship.id, user.friendship)"
+            *ngIf="user.friendship?.status == 'Pending' && user.friendship?.receiverId === userId"
+            size="medium"
+            slot="start"
+          >
+            <ion-icon name="checkmark-outline"></ion-icon
+          ></ion-button>
+          <ion-title> {{ user.firstName + " " + user.lastName }} </ion-title>
+        </ion-item>
+        <!-- <ion-text>
+          <p>{{ user.birthDate | date: 'medium' }}</p>
+        </ion-text> -->
       </ion-card-content>
     </ion-card>
     <ng-template #noDataTemplate>

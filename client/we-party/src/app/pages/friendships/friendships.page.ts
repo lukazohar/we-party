@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import {
   trigger,
   style,
@@ -13,6 +13,10 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { IFriendship } from './interfaces/friendship.interface';
 import { Friendship } from './interfaces/friendship';
 import { FriendshipService } from './services/friendship.service';
+import { combineLatest, from } from 'rxjs';
+import { UserService } from './services/users.service';
+import { IUser } from 'src/app/auth/user.interface';
+import { ToastService } from 'src/app/core/toast/toast.service';
 
 @Component({
   selector: 'app-friendships',
@@ -37,7 +41,10 @@ import { FriendshipService } from './services/friendship.service';
   ],
 })
 export class FriendshipsPage implements OnInit {
+  userId: string;
+  loading: HTMLIonLoadingElement;
   friendships: Array<IFriendship>;
+  users: Array<IUser>;
   modal: HTMLIonModalElement;
 
   constructor(
@@ -45,62 +52,101 @@ export class FriendshipsPage implements OnInit {
     private storage: Storage,
     private modalController: ModalController,
     private authService: AuthService,
+    private userService: UserService,
+    private loadingController: LoadingController,
+    private toastService: ToastService,
   ) {}
 
-  ngOnInit() {
-    this.friendshipService.getAll().subscribe((friendships) => {
-      this.friendships = friendships;
-    });
-  }
+  async ngOnInit() {
+    await this.showLoading();
+    combineLatest([
+      this.friendshipService.getAll(),
+      this.userService.getAll(),
+      from(this.storage.get('ID')),
+    ]).subscribe(
+      ([friendships, users, userId]) => {
+        this.userId = userId;
+        this.updateUsers(users, friendships);
 
-  add() {
-    const newFriendship = new Friendship();
-    this.displayModal(newFriendship, false);
-  }
-
-  show(friendship: IFriendship) {
-    this.displayModal(friendship, true);
-  }
-
-  async displayModal(friendship: IFriendship, displayOnly: boolean) {
-    this.presentModal(friendship, displayOnly).then(async () => {
-      const { data } = await this.modal.onWillDismiss();
-      if (data.new && !data.dismissed) {
-        setTimeout(() => {
-          this.friendships.unshift(data.item);
-        }, 300);
-      } else if (!data.dismissed) {
-        setTimeout(() => {
-          const index = this.friendships.findIndex(
-            (arrFriendship) => arrFriendship.id === data.item._id,
-          );
-          this.friendships[index] = data.item;
-        }, 300);
-      } else if (data.deleted) {
-        const index = this.friendships.findIndex(
-          (arrFriendship) => arrFriendship.id === data.item._id,
-        );
-        setTimeout(() => {
-          this.friendships.splice(index, 1);
-        }, 300);
-      }
-    });
-  }
-
-  async presentModal(item: IFriendship, displayOnly: boolean) {
-    /* const modal = await this.modalController.create({
-      component: FriendshipComponent,
-      cssClass: 'modal-class',
-      componentProps: {
-        item,
-        displayOnly,
+        this.hideLoading();
       },
+      (err) => {
+        this.loading.dismiss();
+        this.toastService.danger('Error loading');
+      },
+    );
+  }
+
+  updateUsers(users: Array<IUser>, friendships: Array<IFriendship>) {
+    users = users.filter((user) => user.id !== this.userId);
+    users.forEach((user) => {
+      user.friendship = friendships.find(
+        (friendship) => friendship.receiverId === user.id,
+      );
     });
-    this.modal = modal;
-    return await modal.present(); */
+    this.users = users;
+    this.friendships = friendships;
+  }
+
+  add(requesterId: string, receiverId: string) {
+    console.log('TCL: FriendshipsPage -> add -> requesterId', requesterId);
+    const newFriendship = new Friendship();
+    newFriendship.requesterId = requesterId;
+    newFriendship.receiverId = receiverId;
+
+    this.friendshipService.create(newFriendship).subscribe(
+      (createdFriendShip) => {
+        this.friendships.push(createdFriendShip);
+        this.updateUsers(this.users, this.friendships);
+      },
+      (err) => {
+        console.log(err);
+        this.toastService.danger('Error');
+      },
+    );
+  }
+  decline(requestId: number) {
+    this.friendshipService.delete(requestId).subscribe(
+      () => {
+        const index = this.friendships.findIndex(
+          (friendship) => friendship.id === requestId,
+        );
+        this.friendships.splice(index);
+        this.updateUsers(this.users, this.friendships);
+      },
+      (err) => {
+        console.log(err);
+        this.toastService.danger('Error');
+      },
+    );
+  }
+  confirm(requestId: number, request: IFriendship) {
+    this.friendshipService.update(requestId, request).subscribe(
+      (confirmedFriendship) => {
+        const foundFriendship = this.friendships.find(
+          (friendship) => friendship.id === requestId,
+        );
+        foundFriendship.status = 'Confirmed';
+      },
+      (err) => {
+        console.log(err);
+        this.toastService.danger('Error');
+      },
+    );
   }
 
   logout() {
     this.authService.logout();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Loading',
+    });
+    await loading.present();
+    this.loading = loading;
+  }
+  hideLoading() {
+    this.loading.dismiss();
   }
 }

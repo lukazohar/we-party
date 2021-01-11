@@ -19,6 +19,6 @@ import { FriendshipsPage } from './friendships.page';
     ReactiveFormsModule,
     AuthModule,
   ],
-  declarations: [FriendshipsPage /* FriendshipComponent */],
+  declarations: [FriendshipsPage],
 })
 export class FriendshipsPageModule {}
