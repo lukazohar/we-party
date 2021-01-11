@@ -1,4 +1,4 @@
-import { IUser } from '../../friends/interfaces/user.interface';
+import { IUser } from 'src/app/auth/user.interface';
 import { IParty } from '../../parties/interfaces/party.interface';
 
 export interface IApplication {

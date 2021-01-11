@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { forkJoin, from, Observable } from 'rxjs';
 import { AuthResponse } from './auth-response';
-import { User } from './user.interface';
+import { IUser } from './user.interface';
 import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -23,7 +23,7 @@ export class AuthService {
     private jwtHelper: JwtHelperService,
   ) {}
 
-  login(user: User): Observable<AuthResponse> {
+  login(user: IUser): Observable<AuthResponse> {
     let response: AuthResponse;
     return this.http.post<AuthResponse>(`${this.baseUrl}/token`, user).pipe(
       switchMap((res: AuthResponse) => {

@@ -33,7 +33,9 @@ const routes: Routes = [
     path: 'friends',
     canActivate: [AuthGuardService],
     loadChildren: () =>
-      import('./pages/friends/friends.module').then((m) => m.FriendsPageModule),
+      import('./pages/friendships/friendships.module').then(
+        (m) => m.FriendshipsPageModule,
+      ),
   },
 ];
 @NgModule({

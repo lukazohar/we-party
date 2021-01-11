@@ -7,7 +7,7 @@
     vertical="bottom"
     horizontal="end"
     slot="fixed"
-    *ngIf="displayOnly && owns"
+    *ngIf="displayOnly && !owns"
   >
     <ion-fab-button color="success" (click)="apply(item.id)">
       <ion-text>Apply</ion-text>
@@ -91,6 +91,11 @@
       <ion-text *ngIf="displayOnly" name="capacity">
         {{ item.capacity }}
       </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Public: </ion-label>
+      <ion-checkbox formControlName="isPublic" name="isPublic"></ion-checkbox>
     </ion-item>
 
     <ion-item>

@@ -1,4 +1,4 @@
-import { User } from '././../../friends/interfaces/user';
+import { User } from 'src/app/auth/user';
 
 export class Party {
   id: number;
