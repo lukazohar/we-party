@@ -14,7 +14,9 @@
   >
     <ion-card *ngFor="let party of parties" (click)="show(party)">
       <ion-card-header>
-        <ion-card-title> {{ party.title }} </ion-card-title>
+        <ion-card-title>
+          <ion-text class="ion-text-start"> {{ party.title }} </ion-text>
+        </ion-card-title>
       </ion-card-header>
 
       <ion-card-content>

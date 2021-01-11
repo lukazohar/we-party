@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { ApplicationsPageRoutingModule } from './applications-routing.module';
 
 import { ApplicationsPage } from './applications.page';
+import { PartyService } from '../parties/services/party.service';
+import { ApplicationService } from './services/application.service';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ApplicationsPageRoutingModule
+    ApplicationsPageRoutingModule,
   ],
-  declarations: [ApplicationsPage]
+  declarations: [ApplicationsPage],
+  providers: [PartyService, ApplicationService],
 })
 export class ApplicationsPageModule {}

@@ -3,6 +3,12 @@
     <ion-title>Party</ion-title>
   </ion-toolbar>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="apply(item.id)">
+      Apply
+    </ion-fab-button>
+  </ion-fab>
+
   <form [formGroup]="formGroup">
     <ion-item>
       <ion-label>Title: </ion-label>

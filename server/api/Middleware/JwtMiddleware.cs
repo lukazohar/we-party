@@ -65,7 +65,7 @@ namespace api.Middleware
 
                 // attach user to context on successful jwt validation
                 var user = dbContext.Users.FirstOrDefault(user => user.Id == userId);
-                context.Items.Add("User", user);
+                context.Items["User"] = user;
             }
             catch
             {

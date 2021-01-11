@@ -81,6 +81,10 @@ namespace api.Controllers
         public async Task<ActionResult<Application>> PostApplication(Application application)
         {
             application.AppliedAt = DateTime.Now;
+            var user = (ApplicationUser)HttpContext.Items.First().Value;
+            application.UserId = user.Id;
+            application.Status = "Pending";
+
 
             _context.Applications.Add(application);
             await _context.SaveChangesAsync();

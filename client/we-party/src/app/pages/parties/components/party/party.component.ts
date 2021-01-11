@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { ToastService } from 'src/app/core/toast/toast.service';
+import { IApplication } from 'src/app/pages/applications/interfaces/application.interface';
+import { ApplicationService } from 'src/app/pages/applications/services/application.service';
 import { Party } from '../../interfaces/party';
 import { PartyService } from '../../services/party.service';
 
@@ -18,8 +20,9 @@ export class PartyComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private partyService: PartyService,
     private toastService: ToastService,
+    private partyService: PartyService,
+    private applicationService: ApplicationService,
   ) {}
 
   ngOnInit() {
@@ -94,5 +97,21 @@ export class PartyComponent implements OnInit {
     this.modalController.dismiss({
       dismissed: true,
     });
+  }
+
+  apply(partyId: number) {
+    const newApplication: IApplication = {
+      partyId,
+    };
+
+    this.applicationService.create(newApplication).subscribe(
+      () => {
+        this.toastService.success('Applied', 1000);
+      },
+      (err) => {
+        console.log(err);
+        this.toastService.danger('Error', 1000);
+      },
+    );
   }
 }
