@@ -1,9 +1,12 @@
+import { Friendship } from '../pages/friendships/interfaces/friendship';
+
 export class User {
-  id: number;
+  id: string;
   name: string;
   firstName: string;
   lastName: string;
   username: string;
   email: string;
   password: string;
+  friendship: Friendship;
 }
