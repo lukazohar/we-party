@@ -12,6 +12,9 @@
         formControlName="title"
         name="title"
       ></ion-input>
+      <ion-text *ngIf="displayOnly" name="title">
+        {{ item.title }}
+      </ion-text>
     </ion-item>
 
     <ion-item>
@@ -22,6 +25,9 @@
         formControlName="description"
         name="description"
       ></ion-textarea>
+      <ion-text *ngIf="displayOnly" name="description">
+        {{ item.description }}
+      </ion-text>
     </ion-item>
 
     <ion-item>
@@ -32,6 +38,9 @@
         name="date"
         [displayFormat]="'DD MMM, YYYY HH:mm'"
       ></ion-datetime>
+      <ion-text *ngIf="displayOnly" name="date">
+        {{ item.date | date: 'medium' }}
+      </ion-text>
     </ion-item>
 
     <ion-item>
@@ -42,6 +51,9 @@
         formControlName="price"
         name="price"
       ></ion-input>
+      <ion-text *ngIf="displayOnly" name="price">
+        {{ item.price }}
+      </ion-text>
     </ion-item>
 
     <ion-item>
@@ -72,23 +84,24 @@
 
     <ion-item>
       <ion-label>Public: </ion-label>
-      <ion-checkbox
-        *ngIf="!displayOnly"
-        formControlName="isPublic"
-        name="isPublic"
-      ></ion-checkbox>
-      <ion-text *ngIf="displayOnly" name="isPublic">
-        {{ item.isPublic }}
-      </ion-text>
+      <ion-checkbox formControlName="isPublic" name="isPublic"></ion-checkbox>
     </ion-item>
 
     <ion-item>
       <ion-label>Status</ion-label>
-      <ion-select formControlName="status" okText="Okay" cancelText="Dismiss">
-        <ion-select-option value="upcoming">Upcoming</ion-select-option>
-        <ion-select-option value="finished">Finished</ion-select-option>
-        <ion-select-option value="canceled">Canceled</ion-select-option>
+      <ion-select
+        *ngIf="!displayOnly"
+        formControlName="status"
+        okText="Okay"
+        cancelText="Dismiss"
+      >
+        <ion-select-option value="Upcoming">Upcoming</ion-select-option>
+        <ion-select-option value="Finished">Finished</ion-select-option>
+        <ion-select-option value="Canceled">Canceled</ion-select-option>
       </ion-select>
+      <ion-text *ngIf="displayOnly" name="status">
+        {{ item.status }}
+      </ion-text>
     </ion-item>
   </form>
 </ion-content>
