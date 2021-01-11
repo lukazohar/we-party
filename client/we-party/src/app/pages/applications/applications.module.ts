@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ApplicationsPageRoutingModule } from './applications-routing.module';
-
+import { HttpClientModule } from '@angular/common/http';
+import { AuthModule } from 'src/app/auth/auth.module';
 import { ApplicationsPage } from './applications.page';
-import { PartyService } from '../parties/services/party.service';
-import { ApplicationService } from './services/application.service';
+import { ApplicationComponent } from './components/application/application.component';
+import { ApplicationsPageRoutingModule } from './applications-routing.module';
 
 @NgModule({
   imports: [
@@ -16,8 +16,10 @@ import { ApplicationService } from './services/application.service';
     FormsModule,
     IonicModule,
     ApplicationsPageRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    AuthModule,
   ],
-  declarations: [ApplicationsPage],
-  providers: [PartyService, ApplicationService],
+  declarations: [ApplicationsPage, ApplicationComponent],
 })
 export class ApplicationsPageModule {}
