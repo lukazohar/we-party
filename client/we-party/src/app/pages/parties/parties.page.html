@@ -8,9 +8,10 @@
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
   <div
     [@listAnimation]="parties"
-    *ngIf="parties?.length > 0; else noDataTemplate"
+    *ngIf="parties?.length != 0; else noDataTemplate"
   >
     <ion-card *ngFor="let party of parties" (click)="show(party)">
       <ion-card-header>
@@ -37,4 +38,10 @@
       </ion-text>
     </ng-template>
   </div>
+
+  <ng-template #noDataTemplate>
+    <div class="ion-text-center">
+      <ion-title>No Parties :(</ion-title>
+    </div>
+  </ng-template>
 </div>

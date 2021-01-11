@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import {
   trigger,
   style,
@@ -14,6 +14,7 @@ import { IParty } from './interfaces/party.interface';
 import { Party } from './interfaces/party';
 import { PartyService } from './services/party.service';
 import { PartyComponent } from './components/party/party.component';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-parties',
@@ -38,7 +39,8 @@ import { PartyComponent } from './components/party/party.component';
   ],
 })
 export class PartiesPage implements OnInit {
-  parties: Array<IParty>;
+  loading: HTMLIonLoadingElement;
+  parties: Array<IParty> = [];
   modal: HTMLIonModalElement;
 
   constructor(
@@ -46,10 +48,13 @@ export class PartiesPage implements OnInit {
     private storage: Storage,
     private modalController: ModalController,
     private authService: AuthService,
+    private loadingController: LoadingController,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.showLoading();
     this.partyService.getAll().subscribe((parties) => {
+      this.hideLoading();
       this.parties = parties;
     });
   }
@@ -103,5 +108,16 @@ export class PartiesPage implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Loading',
+    });
+    await loading.present();
+    this.loading = loading;
+  }
+  hideLoading() {
+    this.loading.dismiss();
   }
 }

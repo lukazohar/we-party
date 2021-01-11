@@ -81,6 +81,7 @@ namespace api.Controllers
         [HttpPost]
         public async Task<ActionResult<Party>> PostParty(Party party)
         {
+            party.Date = DateTime.Now;
             party.CreatedAt = DateTime.Now;
 
             _context.Parties.Add(party);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import {
   trigger,
   style,
@@ -37,6 +37,7 @@ import { ApplicationComponent } from './components/application/application.compo
   ],
 })
 export class ApplicationsPage implements OnInit {
+  loading: HTMLIonLoadingElement;
   applications: Array<IApplication>;
   modal: HTMLIonModalElement;
 
@@ -45,10 +46,13 @@ export class ApplicationsPage implements OnInit {
     private storage: Storage,
     private modalController: ModalController,
     private authService: AuthService,
+    private loadingController: LoadingController,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.showLoading();
     this.applicationService.getAll().subscribe((applications) => {
+      this.hideLoading();
       this.applications = applications;
     });
   }
@@ -97,5 +101,16 @@ export class ApplicationsPage implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  async showLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Loading',
+    });
+    await loading.present();
+    this.loading = loading;
+  }
+  hideLoading() {
+    this.loading.dismiss();
   }
 }
