@@ -64,6 +64,7 @@ export class PartyComponent implements OnInit {
       } else {
         this.partyService.create(this.item).subscribe(
           (party) => {
+            this.item = party;
             this.modalController.dismiss({
               dismissed: false,
               item: party,

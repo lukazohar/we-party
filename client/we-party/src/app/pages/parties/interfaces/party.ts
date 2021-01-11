@@ -9,8 +9,8 @@ export class Party {
   price: number;
   location: string;
   capacity: number;
-  isPublic: boolean;
-  status: string;
+  isPublic = true;
+  status = 'Upcoming';
   userId: string;
   user: User;
 }
