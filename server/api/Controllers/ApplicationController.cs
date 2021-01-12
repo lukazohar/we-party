@@ -25,7 +25,8 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Application>>> GetApplicationes()
         {
-            return await _context.Applications.ToListAsync();
+            var user = (ApplicationUser)HttpContext.Items.First().Value;
+            return await _context.Applications.Where(application => application.UserId == user.Id).ToListAsync();
         }
 
         // GET: api/Application/5
