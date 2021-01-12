@@ -1,60 +1,62 @@
-<div class="content">
-  <ion-title class="ion-text-left">
-    <h1>Friendships</h1>
-  </ion-title>
+<ion-content>
+  <div class="content">
+    <ion-title class="ion-text-left">
+      <h1>Friendships</h1>
+    </ion-title>
 
-  <div
-    [@listAnimation]="friendships"
-    *ngIf="users?.length > 0; else noDataTemplate"
-  >
-    <ion-card *ngFor="let user of users">
-      <ion-card-content>
-        <ion-item>
-          <ion-button
-            (click)="add(userId, user.id)"
-            *ngIf="user.friendship?.status == null"
-            size="medium"
-            slot="start"
-          >
-            <ion-icon name="add-outline"></ion-icon
-          ></ion-button>
-          <ion-button
-            (click)="decline(user.friendship.id)"
-            *ngIf="user.friendship?.status == 'Pending' && user.friendship?.requesterId === userId"
-            color="light"
-            size="medium"
-            slot="start"
-          >
-            <ion-icon name="send-outline"></ion-icon
-          ></ion-button>
-          <ion-button
-            (click)="decline(user.friendship.id)"
-            *ngIf="user.friendship?.status == 'Confirmed'"
-            size="medium"
-            slot="start"
-            color="danger"
-          >
-            <ion-icon name="close-outline"></ion-icon
-          ></ion-button>
-          <ion-button
-            (click)="confirm(user.friendship.id, user.friendship)"
-            *ngIf="user.friendship?.status == 'Pending' && user.friendship?.receiverId === userId"
-            size="medium"
-            slot="start"
-          >
-            <ion-icon name="checkmark-outline"></ion-icon
-          ></ion-button>
-          <ion-title> {{ user.firstName + " " + user.lastName }} </ion-title>
-        </ion-item>
-        <!-- <ion-text>
+    <div
+      [@listAnimation]="friendships"
+      *ngIf="users?.length > 0; else noDataTemplate"
+    >
+      <ion-card *ngFor="let user of users">
+        <ion-card-content>
+          <ion-item>
+            <ion-button
+              (click)="add(userId, user.id)"
+              *ngIf="user.friendship?.status == null"
+              size="medium"
+              slot="start"
+            >
+              <ion-icon name="add-outline"></ion-icon
+            ></ion-button>
+            <ion-button
+              (click)="decline(user.friendship.id)"
+              *ngIf="user.friendship?.status == 'Pending' && user.friendship?.requesterId === userId"
+              color="light"
+              size="medium"
+              slot="start"
+            >
+              <ion-icon name="send-outline"></ion-icon
+            ></ion-button>
+            <ion-button
+              (click)="decline(user.friendship.id)"
+              *ngIf="user.friendship?.status == 'Confirmed'"
+              size="medium"
+              slot="start"
+              color="danger"
+            >
+              <ion-icon name="close-outline"></ion-icon
+            ></ion-button>
+            <ion-button
+              (click)="confirm(user.friendship.id, user.friendship)"
+              *ngIf="user.friendship?.status == 'Pending' && user.friendship?.receiverId === userId"
+              size="medium"
+              slot="start"
+            >
+              <ion-icon name="checkmark-outline"></ion-icon
+            ></ion-button>
+            <ion-title> {{ user.firstName + " " + user.lastName }} </ion-title>
+          </ion-item>
+          <!-- <ion-text>
           <p>{{ user.birthDate | date: 'medium' }}</p>
         </ion-text> -->
-      </ion-card-content>
-    </ion-card>
-    <ng-template #noDataTemplate>
-      <ion-text class="ion-text-center">
-        <h1>Nothing Found :(</h1>
-      </ion-text>
-    </ng-template>
+        </ion-card-content>
+      </ion-card>
+      <ng-template #noDataTemplate>
+        <ion-text class="ion-text-center">
+          <h1>Nothing Found :(</h1>
+        </ion-text>
+      </ng-template>
+    </div>
   </div>
-</div>
+</ion-content>
