@@ -1,7 +1,0 @@
-{
-  "name": "we-party",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
