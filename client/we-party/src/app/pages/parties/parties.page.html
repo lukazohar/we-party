@@ -4,13 +4,11 @@
       <h1>Parties</h1>
     </ion-title>
 
-    <ion-footer>
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="primary" (click)="add()">
-          <ion-icon name="add-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-    </ion-footer>
+    <ion-fab class="content" vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button color="primary" (click)="add()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
     <div
       [@listAnimation]="parties"

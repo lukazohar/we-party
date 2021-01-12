@@ -37,7 +37,7 @@ namespace api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<ApplicationUser>> Register(ApplicationUser newUser)
+        public async Task<ActionResult<ApplicationUser>> Register(RegisterUser newUser)
         {
             var user = new ApplicationUser()
             {
@@ -58,7 +58,7 @@ namespace api.Controllers
                 return BadRequest();
             }
 
-            return newUser;
+            return user;
         }
 
         [HttpPost("token")]
