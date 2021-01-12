@@ -49,10 +49,10 @@ namespace api
 
             services.AddSwaggerGen(config =>
             {
-                config.SwaggerDoc("WeParty", new Microsoft.OpenApi.Models.OpenApiInfo
+                config.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
                     Title = "We Party",
-                    Version = "WeParty"
+                    Version = "v1"
                 });
             });
 
@@ -82,7 +82,7 @@ namespace api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/WeParty/swagger.json", "WeParty");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
 
 
