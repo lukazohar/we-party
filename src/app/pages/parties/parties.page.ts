@@ -71,24 +71,24 @@ export class PartiesPage implements OnInit {
   async displayModal(party: IParty, displayOnly: boolean) {
     this.presentModal(party, displayOnly).then(async () => {
       const { data } = await this.modal.onWillDismiss();
-      if (data.new && !data.dismissed) {
-        setTimeout(() => {
-          this.parties.unshift(data.item);
-        }, 300);
-      } else if (!data.dismissed) {
-        setTimeout(() => {
+      if (data) {
+        if (data.new && !data.dismissed) {
+          setTimeout(() => {
+            this.parties.unshift(data.item);
+          }, 300);
+        } else if (!data.dismissed) {
           const index = this.parties.findIndex(
-            (arrParty) => arrParty.id === data.item._id,
+            (arrParty) => arrParty.id === data.item.id,
           );
           this.parties[index] = data.item;
-        }, 300);
-      } else if (data.deleted) {
-        const index = this.parties.findIndex(
-          (arrParty) => arrParty.id === data.item._id,
-        );
-        setTimeout(() => {
-          this.parties.splice(index, 1);
-        }, 300);
+        } else if (data.deleted) {
+          const index = this.parties.findIndex(
+            (arrParty) => arrParty.id === data.item.id,
+          );
+          setTimeout(() => {
+            this.parties.splice(index, 1);
+          }, 300);
+        }
       }
     });
   }

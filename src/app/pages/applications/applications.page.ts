@@ -64,24 +64,26 @@ export class ApplicationsPage implements OnInit {
   async displayModal(application: IApplication, displayOnly: boolean) {
     this.presentModal(application, displayOnly).then(async () => {
       const { data } = await this.modal.onWillDismiss();
-      if (data.new && !data.dismissed) {
-        setTimeout(() => {
-          this.applications.unshift(data.item);
-        }, 300);
-      } else if (!data.dismissed) {
-        setTimeout(() => {
+      if (data) {
+        if (data.new && !data.dismissed) {
+          setTimeout(() => {
+            this.applications.unshift(data.item);
+          }, 300);
+        } else if (!data.dismissed) {
+          setTimeout(() => {
+            const index = this.applications.findIndex(
+              (arrApplication) => arrApplication.id === data.item.id,
+            );
+            this.applications[index] = data.item;
+          }, 300);
+        } else if (data.deleted) {
           const index = this.applications.findIndex(
-            (arrApplication) => arrApplication.id === data.item._id,
+            (arrApplication) => arrApplication.id === data.item.id,
           );
-          this.applications[index] = data.item;
-        }, 300);
-      } else if (data.deleted) {
-        const index = this.applications.findIndex(
-          (arrApplication) => arrApplication.id === data.item._id,
-        );
-        setTimeout(() => {
-          this.applications.splice(index, 1);
-        }, 300);
+          setTimeout(() => {
+            this.applications.splice(index, 1);
+          }, 300);
+        }
       }
     });
   }
