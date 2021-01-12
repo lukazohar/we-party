@@ -9,6 +9,7 @@ import { AuthModule } from 'src/app/auth/auth.module';
 import { ApplicationsPage } from './applications.page';
 import { ApplicationComponent } from './components/application/application.component';
 import { ApplicationsPageRoutingModule } from './applications-routing.module';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ApplicationsPageRoutingModule } from './applications-routing.module';
     HttpClientModule,
     ReactiveFormsModule,
     AuthModule,
+    CoreModule,
   ],
   declarations: [ApplicationsPage, ApplicationComponent],
 })

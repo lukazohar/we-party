@@ -18,6 +18,6 @@ import { HTTP } from '@ionic-native/http/ngx';
     IonicStorageModule.forRoot(),
   ],
   providers: [HTTP, AuthGuardService, LoginAuthGuardService, AuthService],
-  exports: [AuthService, LoginAuthGuardService],
+  exports: [],
 })
 export class AuthModule {}

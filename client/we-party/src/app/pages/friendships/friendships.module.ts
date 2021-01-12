@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from 'src/app/auth/auth.module';
 import { FriendshipsPageRoutingModule } from './friendships-routing.module';
 import { FriendshipsPage } from './friendships.page';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { FriendshipsPage } from './friendships.page';
     HttpClientModule,
     ReactiveFormsModule,
     AuthModule,
+    CoreModule,
   ],
   declarations: [FriendshipsPage],
 })

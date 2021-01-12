@@ -9,6 +9,7 @@ import { AuthModule } from 'src/app/auth/auth.module';
 import { PartiesPage } from './parties.page';
 import { PartyComponent } from './components/party/party.component';
 import { PartiesPageRoutingModule } from './parties-routing.module';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { PartiesPageRoutingModule } from './parties-routing.module';
     HttpClientModule,
     ReactiveFormsModule,
     AuthModule,
+    CoreModule,
   ],
   declarations: [PartiesPage, PartyComponent],
 })
