@@ -23,10 +23,26 @@ namespace api.Controllers
 
         // GET: api/Application
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Application>>> GetApplicationes()
+        public async Task<ActionResult<IEnumerable<Application>>> GetApplications()
         {
             var user = (ApplicationUser)HttpContext.Items.First().Value;
             return await _context.Applications.Where(application => application.UserId == user.Id).ToListAsync();
+        }
+
+        // GET: api/Application/pending
+        [HttpGet("/my")]
+        public async Task<ActionResult<IEnumerable<Application>>> GetPendingApplications()
+        {
+            var user = (ApplicationUser)HttpContext.Items.First().Value;
+            return await _context.Applications.Where(application => application.UserId == user.Id).ToListAsync();
+        }
+
+        // GET: api/Application/receiving
+        [HttpGet("/receiving")]
+        public async Task<ActionResult<IEnumerable<Application>>> GetReceivingApplications()
+        {
+            var user = (ApplicationUser)HttpContext.Items.First().Value;
+            return await _context.Applications.Where(application => application.Party.UserId == user.Id && application.Status == "Pending").ToListAsync();
         }
 
         // GET: api/Application/5
