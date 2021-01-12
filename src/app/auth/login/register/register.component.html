@@ -1,0 +1,67 @@
+<ion-content>
+  <ion-toolbar color="secondary">
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+
+  <form [formGroup]="formGroup">
+    <ion-item>
+      <ion-label>Username: </ion-label>
+      <ion-input
+        type="text"
+        formControlName="userName"
+        name="userName"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Email: </ion-label>
+      <ion-input type="text" formControlName="email" name="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>First Name: </ion-label>
+      <ion-input
+        type="text"
+        formControlName="firstName"
+        name="firstName"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Last Name: </ion-label>
+      <ion-input
+        type="text"
+        formControlName="lastName"
+        name="lastName"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Password: </ion-label>
+      <ion-input
+        type="password"
+        formControlName="password"
+        name="password"
+      ></ion-input>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()"> Back </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button
+        [disabled]="!formGroup.valid"
+        fill="solid"
+        color="primary"
+        (click)="save()"
+      >
+        Register
+        <ion-icon slot="end" name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
