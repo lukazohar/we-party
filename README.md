@@ -7,6 +7,10 @@ We Party is mobile app, used for applying, creating and attending parties. For b
 - [Luka Žohar](https://github.com/lukazohar): 63190331
 - [Patrik Bogataj](https://github.com/Branko4453): 63190063
 
+## Links
+
+[Client App](https://github.com/lukazohar)
+
 # Usage
 
 ## Register
