@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { ToastService } from 'src/app/core/toast/toast.service';
 import { IApplication } from 'src/app/pages/applications/interfaces/application.interface';
 import { ApplicationService } from 'src/app/pages/applications/services/application.service';
-import { Party } from '../../interfaces/party';
+import { IParty } from '../../interfaces/party.interface';
 import { PartyService } from '../../services/party.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { PartyService } from '../../services/party.service';
   styleUrls: ['./party.component.scss'],
 })
 export class PartyComponent implements OnInit {
-  @Input() item: Party;
+  @Input() item: IParty;
   @Input() displayOnly: boolean;
 
   formGroup: FormGroup;
