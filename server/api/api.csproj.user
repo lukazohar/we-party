@@ -10,6 +10,6 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>api.Models.WePartyDBContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
-    <NameOfLastUsedPublishProfile>wePartyDeploy - Web Deploy</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>api20210112131818 - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

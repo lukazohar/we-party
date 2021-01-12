@@ -1,0 +1,56 @@
+<ion-content>
+  <ion-toolbar color="secondary">
+    <ion-title>Application</ion-title>
+  </ion-toolbar>
+
+  <ion-item>
+    <ion-label>Party: </ion-label>
+    <ion-text *ngIf="displayOnly" name="title">
+      {{ item.party.title }}
+    </ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Host: </ion-label>
+    <ion-text *ngIf="displayOnly" name="host">
+      {{ item.user.firstName }} {{ item.user.lastName }}
+    </ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Status: </ion-label>
+    <ion-text *ngIf="displayOnly" name="status">
+      {{ item.status }}
+    </ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Date: </ion-label>
+    <ion-text *ngIf="displayOnly" name="partyDate">
+      {{ item.party.date }}
+    </ion-text>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="solid" color="danger" (click)="delete()">
+        Delete
+        <ion-icon slot="end" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="back()"> Back </ion-button>
+      <ion-button
+        *ngIf="!displayOnly"
+        fill="solid"
+        color="success"
+        (click)="save()"
+      >
+        Save
+        <ion-icon slot="end" name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
