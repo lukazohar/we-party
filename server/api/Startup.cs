@@ -79,13 +79,18 @@ namespace api
             app.UseAuthorization();
             app.UseAuthentication();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/WeParty/swagger.json", "WeParty");
+            });
+
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-            app.UseSwagger();
         }
     }
 }
