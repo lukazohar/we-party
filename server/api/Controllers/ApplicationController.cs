@@ -30,7 +30,7 @@ namespace api.Controllers
         }
 
         // GET: api/Application/pending
-        [HttpGet("/my")]
+        [HttpGet("my")]
         public async Task<ActionResult<IEnumerable<Application>>> GetPendingApplications()
         {
             var user = (ApplicationUser)HttpContext.Items.First().Value;
@@ -38,7 +38,7 @@ namespace api.Controllers
         }
 
         // GET: api/Application/receiving
-        [HttpGet("/receiving")]
+        [HttpGet("received")]
         public async Task<ActionResult<IEnumerable<Application>>> GetReceivingApplications()
         {
             var user = (ApplicationUser)HttpContext.Items.First().Value;

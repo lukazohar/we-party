@@ -4,6 +4,19 @@
       <h1>Applications</h1>
     </ion-title>
 
+    <ion-segment
+      style="margin-bottom: 40px"
+      (ionChange)="changeSearchMode($event.target.value)"
+      [value]="'my'"
+    >
+      <ion-segment-button value="my">
+        <ion-label>My</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="received">
+        <ion-label>Received</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
     <div
       [@listAnimation]="applications"
       *ngIf="applications?.length > 0; else noDataTemplate"

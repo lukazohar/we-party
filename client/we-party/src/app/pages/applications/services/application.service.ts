@@ -26,6 +26,28 @@ export class ApplicationService {
       ),
     );
   }
+  getAllMy(): Observable<IApplication[]> {
+    return from(this.storage.get('ACCESS_TOKEN')).pipe(
+      switchMap((token) =>
+        this.http.get<IApplication[]>(this.baseUrl + '/applications/my', {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }),
+      ),
+    );
+  }
+  getAllReceived(): Observable<IApplication[]> {
+    return from(this.storage.get('ACCESS_TOKEN')).pipe(
+      switchMap((token) =>
+        this.http.get<IApplication[]>(this.baseUrl + '/applications/received', {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }),
+      ),
+    );
+  }
 
   getById(applicationId: number): Observable<IApplication> {
     return from(this.storage.get('ACCESS_TOKEN')).pipe(

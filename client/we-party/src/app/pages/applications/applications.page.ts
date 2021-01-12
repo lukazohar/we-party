@@ -113,4 +113,30 @@ export class ApplicationsPage implements OnInit {
   hideLoading() {
     this.loading.dismiss();
   }
+
+  async changeSearchMode(type: string) {
+    switch (type) {
+      case 'my': {
+        await this.showLoading();
+        this.applicationService.getAllMy().subscribe((applications) => {
+          this.hideLoading();
+          this.applications = applications;
+        });
+        break;
+      }
+      case 'received': {
+        await this.showLoading();
+        this.applicationService.getAllReceived().subscribe((applications) => {
+          this.hideLoading();
+          this.applications = applications;
+        });
+        break;
+      }
+
+      default: {
+        console.log('Wrong searh mode');
+        break;
+      }
+    }
+  }
 }
