@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { ToastService } from 'src/app/core/toast/toast.service';
 import { AuthService } from '../auth.service';
+import { RegisterComponent } from './register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +13,13 @@ import { AuthService } from '../auth.service';
 })
 export class LoginPage implements OnInit {
   formGroup: FormGroup;
+  modal: HTMLIonModalElement;
 
   constructor(
     private router: Router,
     private toast: ToastService,
     private authService: AuthService,
+    private modalController: ModalController,
   ) {}
 
   ngOnInit() {
@@ -35,5 +39,26 @@ export class LoginPage implements OnInit {
         this.toast.danger('Invalid credentials');
       },
     );
+  }
+
+  register() {
+    this.displayModal();
+  }
+
+  async displayModal() {
+    this.presentModal().then(async () => {});
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: RegisterComponent,
+      cssClass: 'modal-class',
+    });
+    this.modal = modal;
+    return await modal.present();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

@@ -8,6 +8,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { CoreModule } from '../../core/core.module';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { CoreModule } from '../../core/core.module';
     LoginPageRoutingModule,
     CoreModule,
   ],
-  declarations: [LoginPage],
+  declarations: [LoginPage, RegisterComponent],
 })
 export class LoginPageModule {}

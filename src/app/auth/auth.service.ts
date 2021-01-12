@@ -4,11 +4,12 @@ import { Storage } from '@ionic/storage';
 import { forkJoin, from, Observable } from 'rxjs';
 import { AuthResponse } from './auth-response';
 import { IUser } from './user.interface';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { HTTP } from '@ionic-native/http/ngx';
+import { IRegisterUser } from './login/register/register-user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,10 @@ export class AuthService {
       }),
       map(() => response),
     );
+  }
+
+  register(user: IRegisterUser): Observable<any> {
+    return this.http.post<void>(`${this.baseUrl}/register`, user);
   }
 
   async logout() {
