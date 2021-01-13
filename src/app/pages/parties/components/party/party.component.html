@@ -3,17 +3,6 @@
     <ion-title>Party</ion-title>
   </ion-toolbar>
 
-  <ion-fab
-    vertical="bottom"
-    horizontal="end"
-    slot="fixed"
-    *ngIf="displayOnly && !owns"
-  >
-    <ion-fab-button color="success" (click)="apply(item.id)">
-      <ion-text>Apply</ion-text>
-    </ion-fab-button>
-  </ion-fab>
-
   <form [formGroup]="formGroup">
     <ion-item>
       <ion-label>Title: </ion-label>
@@ -119,14 +108,19 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-buttons slot="start" *ngIf="owns">
-      <ion-button fill="solid" color="danger" (click)="delete()">
+    <ion-buttons slot="start">
+      <ion-button *ngIf="owns" fill="solid" color="danger" (click)="delete()">
         Delete
         <ion-icon slot="end" name="trash-outline"></ion-icon>
       </ion-button>
+      <ion-button *ngIf="!owns" (click)="back()"> Back </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="back()"> Back </ion-button>
+      <ion-button *ngIf="owns" (click)="back()"> Back </ion-button>
+      <ion-button *ngIf="!owns" fill="solid" color="success" (click)="apply()">
+        Apply
+        <ion-icon name="download-outline"></ion-icon>
+      </ion-button>
       <ion-button
         *ngIf="displayOnly && owns"
         fill="solid"

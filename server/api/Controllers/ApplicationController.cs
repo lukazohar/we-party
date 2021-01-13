@@ -42,7 +42,7 @@ namespace api.Controllers
         public async Task<ActionResult<IEnumerable<Application>>> GetReceivingApplications()
         {
             var user = (ApplicationUser)HttpContext.Items.First().Value;
-            return await _context.Applications.Where(application => application.Party.UserId == user.Id && application.Status == "Pending").ToListAsync();
+            return await _context.Applications.Where(application => application.Party.UserId == user.Id).ToListAsync();
         }
 
         // GET: api/Application/5

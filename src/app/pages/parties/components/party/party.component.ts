@@ -18,7 +18,7 @@ import { PartyService } from '../../services/party.service';
 export class PartyComponent implements OnInit {
   @Input() item: IParty;
   @Input() displayOnly: boolean;
-  userId: string = '';
+  userId = '';
   owns = false;
 
   formGroup: FormGroup;
@@ -113,7 +113,8 @@ export class PartyComponent implements OnInit {
 
   apply(partyId: number) {
     const newApplication: IApplication = {
-      partyId,
+      partyId: this.item.id,
+      status: 'Pending',
     };
 
     this.applicationService.create(newApplication).subscribe(

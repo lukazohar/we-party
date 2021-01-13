@@ -27,7 +27,7 @@
   <ion-item>
     <ion-label>Date: </ion-label>
     <ion-text *ngIf="displayOnly" name="partyDate">
-      {{ item.party.date }}
+      {{ item.party.date | date: 'medium' }}
     </ion-text>
   </ion-item>
 </ion-content>
@@ -43,12 +43,12 @@
     <ion-buttons slot="end">
       <ion-button (click)="back()"> Back </ion-button>
       <ion-button
-        *ngIf="!displayOnly"
+        *ngIf="owns && item.status !== 'Confirmed'"
         fill="solid"
         color="success"
-        (click)="save()"
+        (click)="confirm()"
       >
-        Save
+        Confirm
         <ion-icon slot="end" name="save"></ion-icon>
       </ion-button>
     </ion-buttons>

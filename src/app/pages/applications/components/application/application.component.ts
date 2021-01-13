@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { from } from 'rxjs';
 import { ToastService } from 'src/app/core/toast/toast.service';
 import { Application } from '../../interfaces/application';
 import { ApplicationService } from '../../services/application.service';
@@ -13,51 +14,40 @@ import { ApplicationService } from '../../services/application.service';
 export class ApplicationComponent implements OnInit {
   @Input() item: Application;
   @Input() displayOnly: boolean;
+  owns = false;
+  userId = '';
 
   constructor(
     private modalController: ModalController,
     private toastService: ToastService,
     private applicationService: ApplicationService,
+    private storage: Storage,
   ) {}
 
   ngOnInit() {
-    let idk = 10;
+    from(this.storage.get('ID')).subscribe((id) => {
+      this.userId = id;
+      this.owns = this.item.party.userId === this.userId;
+    });
   }
 
-  save() {
-    if (this.item.id) {
-      this.applicationService.update(this.item.id, this.item).subscribe(
-        (application) => {
-          this.modalController.dismiss({
-            dismissed: false,
-            item: application,
-            new: false,
-          });
-          this.toastService.success('Updated', 1000);
-        },
-        (err) => {
-          console.log(err);
-          this.toastService.danger('Error');
-        },
-      );
-    } else {
-      this.applicationService.create(this.item).subscribe(
-        (application) => {
-          this.modalController.dismiss({
-            dismissed: false,
-            item: application,
-            new: true,
-          });
-          this.toastService.success('Application Created', 3000);
-        },
-        (err) => {
-          console.log(err);
-          this.toastService.danger('Error');
-        },
-      );
-    }
+  confirm() {
+    this.item.status = 'Confirmed';
+    this.applicationService.update(this.item.id, this.item).subscribe(
+      (updatedItem) => {
+        this.modalController.dismiss({
+          dismissed: true,
+          item: updatedItem,
+          new: false,
+          deleted: false,
+        });
+      },
+      (err) => {
+        console.log(err);
+        this.toastService.danger('Error', 1000);
+      },
+    );
   }
-
   delete() {
     this.applicationService.delete(this.item.id).subscribe(
       () => {
@@ -79,9 +69,5 @@ export class ApplicationComponent implements OnInit {
     this.modalController.dismiss({
       dismissed: true,
     });
-  }
-
-  revert(applicationId: number) {
-    // Tukaj se odjaviš od partyja
   }
 }
