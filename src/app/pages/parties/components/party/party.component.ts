@@ -111,7 +111,7 @@ export class PartyComponent implements OnInit {
     });
   }
 
-  apply(partyId: number) {
+  apply = () => {
     const newApplication: IApplication = {
       partyId: this.item.id,
       status: 'Pending',
@@ -126,5 +126,5 @@ export class PartyComponent implements OnInit {
         this.toastService.danger('Error', 1000);
       },
     );
-  }
+  };
 }
