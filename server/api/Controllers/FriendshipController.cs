@@ -24,7 +24,10 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Friendship>>> GetFriendshipes()
         {
-            return await _context.Friendships.ToListAsync();
+            var user = (ApplicationUser)HttpContext.Items.First().Value;
+            return await _context.Friendships
+                .Where(friendship => friendship.RequesterId == user.Id || friendship.ReceiverId == user.Id)
+                .ToListAsync();
         }
 
         // GET: api/Friendship/5

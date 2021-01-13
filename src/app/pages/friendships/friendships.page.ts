@@ -81,7 +81,9 @@ export class FriendshipsPage implements OnInit {
     users = users.filter((user) => user.id !== this.userId);
     users.forEach((user) => {
       user.friendship = friendships.find(
-        (friendship) => friendship.receiverId === user.id,
+        (friendship) =>
+          friendship.receiverId === user.id ||
+          friendship.requesterId === user.id,
       );
     });
     this.users = users;
