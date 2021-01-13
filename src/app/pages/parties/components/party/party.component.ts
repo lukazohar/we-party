@@ -18,6 +18,8 @@ import { PartyService } from '../../services/party.service';
 export class PartyComponent implements OnInit {
   @Input() item: IParty;
   @Input() displayOnly: boolean;
+  userId: string = '';
+  owns = false;
 
   formGroup: FormGroup;
 
@@ -30,6 +32,11 @@ export class PartyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    from(this.storage.get('ID')).subscribe((id) => {
+      this.userId = id;
+      this.owns = this.item.userId === this.userId;
+    });
+
     this.formGroup = new FormGroup({
       title: new FormControl(this.item.title),
       description: new FormControl(this.item.description),
@@ -119,7 +126,4 @@ export class PartyComponent implements OnInit {
       },
     );
   }
-
-  owns = (): Observable<boolean> =>
-    from(this.storage.get('ID')).pipe(map((id) => this.item.id === id));
 }
