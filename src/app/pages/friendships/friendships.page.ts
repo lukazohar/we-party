@@ -111,7 +111,7 @@ export class FriendshipsPage implements OnInit {
         const index = this.friendships.findIndex(
           (friendship) => friendship.id === requestId,
         );
-        this.friendships.splice(index);
+        this.friendships.splice(index, 1);
         this.updateUsers(this.users, this.friendships);
       },
       (err) => {
@@ -121,6 +121,7 @@ export class FriendshipsPage implements OnInit {
     );
   }
   confirm(requestId: number, request: IFriendship) {
+    request.status = 'Confirmed';
     this.friendshipService.update(requestId, request).subscribe(
       (confirmedFriendship) => {
         const foundFriendship = this.friendships.find(

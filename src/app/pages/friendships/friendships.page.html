@@ -1,19 +1,22 @@
 <ion-content>
   <div class="content">
     <ion-title class="ion-text-left">
-      <h1>Friendships</h1>
+      <h1>Friends</h1>
     </ion-title>
 
     <div
       [@listAnimation]="friendships"
       *ngIf="users?.length > 0; else noDataTemplate"
     >
-      <ion-card *ngFor="let user of users">
+      <ion-card
+        *ngFor="let user of users"
+        [style]="user.friendship?.status === 'Confirmed'? 'border: solid green 1px' : ''"
+      >
         <ion-card-content>
           <ion-item>
             <ion-button
               (click)="add(userId, user.id)"
-              *ngIf="user.friendship?.status == null"
+              *ngIf="user.friendship?.status === null"
               size="medium"
               slot="start"
             >
@@ -21,7 +24,7 @@
             ></ion-button>
             <ion-button
               (click)="decline(user.friendship.id)"
-              *ngIf="user.friendship?.status == 'Pending' && user.friendship?.requesterId === userId"
+              *ngIf="user.friendship?.status === 'Pending' && user.friendship?.requesterId === userId"
               color="light"
               size="medium"
               slot="start"
@@ -30,7 +33,7 @@
             ></ion-button>
             <ion-button
               (click)="decline(user.friendship.id)"
-              *ngIf="user.friendship?.status == 'Confirmed'"
+              *ngIf="user.friendship?.status === 'Confirmed'"
               size="medium"
               slot="start"
               color="danger"
@@ -39,7 +42,7 @@
             ></ion-button>
             <ion-button
               (click)="confirm(user.friendship.id, user.friendship)"
-              *ngIf="user.friendship?.status == 'Pending' && user.friendship?.receiverId === userId"
+              *ngIf="user.friendship?.status === 'Pending' && user.friendship?.receiverId === userId"
               size="medium"
               slot="start"
             >
