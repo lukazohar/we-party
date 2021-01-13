@@ -47,18 +47,9 @@ Friends is a page, where you can see, who you are friends with. You can also acc
 
 ![Image of database diagram](https://i.pinimg.com/originals/9f/30/4f/9f304fe5285dcb698e96ad3c2ac23d30.png)
 
-## Assignments
+## Building for production
 
-- [Luka Žohar](https://github.com/lukazohar):
-  - creating and developing models
-  - creating and applying migrations
-  - creating and developing controllers
-  - creating and developing authorization and authentication for backend with JWT modules
-  - applied middleware for testing JWT authentication
-  - created client authentication and authorization
-  - created parties, applications and friends pages on android
-- [Patrik Bogataj](https://github.com/Branko4453)
-  - creating models
-  - creating and applying migrations
-  - developing controllers
-  - started with android application
+- Web: ng build --prod
+  - Heroku: ng build --prod & git push heroku main
+- Android: ionic capactior build android
+- IOS: ionic capactior build ios
