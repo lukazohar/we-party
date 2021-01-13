@@ -68,6 +68,17 @@ export class FriendshipsPage implements OnInit {
         this.userId = userId;
         this.updateUsers(users, friendships);
 
+        const testUser = this.users.find((user) => user.friendship);
+        if (testUser) testUser.friendship.status = 'Confirmed';
+        /* if (testUser) {
+          testUser.friendship.status = 'Pending';
+          const receiver = testUser.friendship.requesterId;
+          const requester = testUser.friendship.receiverId;
+          testUser.friendship.receiverId = receiver;
+          testUser.friendship.requesterId = requester;
+          testUser.friendship.status = 'Pending';
+        } */
+
         this.hideLoading();
       },
       (err) => {

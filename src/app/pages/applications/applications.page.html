@@ -9,11 +9,25 @@
       (ionChange)="changeSearchMode($event.target.value)"
       [value]="'my'"
     >
-      <ion-segment-button value="my">
+      <ion-segment-button
+        value="my"
+        style="
+          border-left: grey solid 1px;
+          border-top: grey solid 1px;
+          border-bottom: grey solid 1px;
+        "
+      >
         <ion-icon name="people-outline"></ion-icon>
         <ion-label>My</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="received">
+      <ion-segment-button
+        value="received"
+        style="
+          border-right: grey solid 1px;
+          border-top: grey solid 1px;
+          border-bottom: grey solid 1px;
+        "
+      >
         <ion-icon name="people-outline"></ion-icon>
         <ion-label>Received </ion-label>
       </ion-segment-button>
